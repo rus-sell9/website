@@ -215,3 +215,8 @@ function Contact() {
 }
 
 export default Contact;
+
+console.log(
+  "Web3Forms key exists:",
+  !!import.meta.env.VITE_WEB3FORMS_KEY
+);
