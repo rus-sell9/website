@@ -1,0 +1,30 @@
+:root {
+  --primary: #1677ff;
+  --dark: #0b1f33;
+  --light-blue: #eaf4ff;
+  --text: #334155;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+}
+
+section {
+  padding: 80px 0;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: #0d63d8;
+  border-color: #0d63d8;
+}
