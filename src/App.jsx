@@ -732,7 +732,7 @@ function App() {
                   <span>
                     <small>Call us</small>
                     <strong>
-                      (000) 000-0000
+                      (562) 507-2586
                     </strong>
                   </span>
                 </a>
