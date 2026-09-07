@@ -908,6 +908,59 @@
 
 
 /* =========================================================
+   GALLERY / OUR WORK
+========================================================= */
+
+.gallery-section {
+  background: var(--section-blue);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(7, 84, 165, 0.08);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 16px 18px;
+  background: linear-gradient(
+    to top,
+    rgba(5, 47, 96, 0.85),
+    transparent
+  );
+}
+
+.gallery-caption span {
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
    TESTIMONIAL
 ========================================================= */
 
@@ -1583,6 +1636,10 @@
     gap: 35px;
   }
 
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .step-line {
     display: none;
   }
@@ -1746,6 +1803,15 @@
 
   .about-badge strong {
     font-size: 35px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .gallery-item img {
+    height: 220px;
   }
 
   .testimonial-card {
