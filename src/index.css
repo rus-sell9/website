@@ -1,23 +1,37 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Sacramento&display=swap");
 
 :root {
-  font-family: "DM Sans", system-ui, sans-serif;
-  color: #17211f;
-  background: #ffffff;
+  /* SL CLEANING SERVICES BRAND COLORS */
+
+  --blue: #0754a5;
+  --blue-dark: #063d7c;
+  --blue-deep: #052f60;
+  --blue-light: #edf6fd;
+
+  --pink: #e875a0;
+  --pink-dark: #d85e8b;
+  --pink-light: #fff0f5;
+
+  --white: #ffffff;
+
+  --text: #153c69;
+  --text-dark: #102f50;
+  --muted: #66788c;
+
+  --border: #dce8f3;
+
+  --background: #ffffff;
+  --section-blue: #f5faff;
+  --section-pink: #fff8fb;
+
+  font-family: "DM Sans", sans-serif;
+  color: var(--text);
+  background: var(--white);
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-
-  --navy: #122522;
-  --navy-light: #1d3530;
-  --green: #4f8b73;
-  --green-dark: #356b55;
-  --cream: #f5f7f3;
-  --cream-dark: #eaf0ea;
-  --text: #17211f;
-  --muted: #66716d;
-  --border: #dfe6e1;
-  --white: #ffffff;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -31,7 +45,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #ffffff;
+  background: var(--white);
 }
 
 body,
@@ -61,11 +75,11 @@ a {
 }
 
 ::selection {
-  color: #ffffff;
-  background: var(--green);
+  color: #fff;
+  background: var(--pink);
 }
 
 :focus-visible {
-  outline: 3px solid rgba(79, 139, 115, 0.45);
+  outline: 3px solid rgba(232, 117, 160, 0.45);
   outline-offset: 3px;
 }
