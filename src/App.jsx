@@ -74,6 +74,33 @@ const steps = [
   },
 ];
 
+const gallery = [
+  {
+    src: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80",
+    caption: "Kitchen Deep Clean",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+    caption: "Living Room Refresh",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    caption: "Bathroom Detail Clean",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+    caption: "Bedroom Tidy & Clean",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+    caption: "Move-Out Cleaning",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
+    caption: "Office Cleaning",
+  },
+];
+
 function Icon({ name, size = 24 }) {
   const common = {
     width: size,
@@ -285,7 +312,7 @@ function App() {
           </nav>
 
           <div className="nav-actions">
-            <a className="nav-phone" href="tel:+15625072586">
+            <a className="nav-phone" href="tel:+10000000000">
               <Icon name="phone" size={17} />
               <span>Call Us</span>
             </a>
@@ -334,7 +361,7 @@ function App() {
 
                 <a
                   className="button button-outline"
-                  href="tel:+15625072586"
+                  href="tel:+10000000000"
                 >
                   <Icon name="phone" size={18} />
                   Call Us
@@ -572,6 +599,47 @@ function App() {
           </div>
         </section>
 
+        {/* GALLERY / OUR WORK */}
+        <section
+          className="section gallery-section"
+          id="work"
+        >
+          <div className="container">
+            <div className="center-heading">
+              <span className="section-label">
+                OUR WORK
+              </span>
+
+              <h2>
+                See the difference for yourself.
+              </h2>
+
+              <p>
+                A look at some of the homes and spaces we've recently
+                cleaned.
+              </p>
+            </div>
+
+            <div className="gallery-grid">
+              {gallery.map((item) => (
+                <div
+                  className="gallery-item"
+                  key={item.caption}
+                >
+                  <img
+                    src={item.src}
+                    alt={item.caption}
+                  />
+
+                  <div className="gallery-caption">
+                    <span>{item.caption}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* TESTIMONIAL */}
         <section className="testimonial-section">
           <div className="container">
@@ -656,7 +724,7 @@ function App() {
 
               <div className="contact-details">
 
-                <a href="tel:+15625072586">
+                <a href="tel:+10000000000">
                   <span className="contact-icon">
                     <Icon name="phone" size={20} />
                   </span>
@@ -664,7 +732,7 @@ function App() {
                   <span>
                     <small>Call us</small>
                     <strong>
-                      (562) 507-2586
+                      (000) 000-0000
                     </strong>
                   </span>
                 </a>
@@ -885,8 +953,8 @@ function App() {
             <div className="footer-column">
               <h4>Contact</h4>
 
-              <a href="tel:+15625072586">
-                (562) 507-2586
+              <a href="tel:+10000000000">
+                (000) 000-0000
               </a>
 
               <a href="mailto:hello@slcleaningservices.online">
@@ -915,7 +983,7 @@ function App() {
       {/* MOBILE CTA */}
       <div className="mobile-bottom-bar">
 
-        <a href="tel:+15625072586">
+        <a href="tel:+10000000000">
           <Icon name="phone" size={18} />
           Call
         </a>
