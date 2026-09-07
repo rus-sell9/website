@@ -616,16 +616,19 @@ function App() {
               </h2>
 
               <p>
-                Add the exact cities, neighborhoods, or ZIP codes SL Cleaning
-                Services currently serves here.
+                We currently provide cleaning services throughout all of Los
+                Angeles County and all of Orange County. Outside these areas?
+                Reach out anyway — we're happy to see if we can make it work
+                for your location.
               </p>
             </div>
 
             <div className="area-list">
-              <span>City / Area 01</span>
-              <span>City / Area 02</span>
-              <span>City / Area 03</span>
-              <span>City / Area 04</span>
+              <span>All of LA County</span>
+              <span>All of Orange County</span>
+              <button onClick={() => scrollTo("contact")}>
+                Outside these areas? Contact us
+              </button>
             </div>
           </div>
         </section>
