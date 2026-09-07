@@ -587,15 +587,34 @@ function App() {
               </div>
             </div>
 
-            <form
-              className="quote-form"
-              onSubmit={(e) => {
-                e.preventDefault();
-                alert(
-                  "Thank you! Your quote request has been received."
-                );
-              }}
-            >
+         <form
+  className="quote-form"
+  action="https://formsubmit.co/lscleaningservices1845@gmail.com"
+  method="POST"
+>
+  <input
+    type="hidden"
+    name="_subject"
+    value="New Quote Request - SL Cleaning Services"
+  />
+
+  <input
+    type="hidden"
+    name="_template"
+    value="table"
+  />
+
+  <input
+    type="hidden"
+    name="_captcha"
+    value="false"
+  />
+
+  <input
+    type="hidden"
+    name="_next"
+    value="https://slcleaningservices.online/?quote=success"
+  />
               <div className="form-accent" />
 
               <span className="form-label">FREE QUOTE</span>
