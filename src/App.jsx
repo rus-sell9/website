@@ -312,7 +312,7 @@ function App() {
           </nav>
 
           <div className="nav-actions">
-            <a className="nav-phone" href="tel:+10000000000">
+            <a className="nav-phone" href="tel:+15625072586">
               <Icon name="phone" size={17} />
               <span>Call Us</span>
             </a>
@@ -361,7 +361,7 @@ function App() {
 
                 <a
                   className="button button-outline"
-                  href="tel:+10000000000"
+                  href="tel:+15625072586"
                 >
                   <Icon name="phone" size={18} />
                   Call Us
@@ -724,7 +724,7 @@ function App() {
 
               <div className="contact-details">
 
-                <a href="tel:+10000000000">
+                <a href="tel:+15625072586">
                   <span className="contact-icon">
                     <Icon name="phone" size={20} />
                   </span>
@@ -737,7 +737,7 @@ function App() {
                   </span>
                 </a>
 
-                <a href="mailto:hello@slcleaningservices.online">
+                <a href="mailto:lscleaningservices1845@gmail.com">
                   <span className="contact-icon">
                     <Icon name="mail" size={20} />
                   </span>
@@ -745,7 +745,7 @@ function App() {
                   <span>
                     <small>Email us</small>
                     <strong>
-                      hello@slcleaningservices.online
+                      lscleaningservices1845@gmail.com
                     </strong>
                   </span>
                 </a>
@@ -953,12 +953,12 @@ function App() {
             <div className="footer-column">
               <h4>Contact</h4>
 
-              <a href="tel:+10000000000">
+              <a href="tel:+15625072586">
                 (000) 000-0000
               </a>
 
-              <a href="mailto:hello@slcleaningservices.online">
-                hello@slcleaningservices.online
+              <a href="mailto:lscleaningservices1845@gmail.com">
+                lscleaningservices1845@gmail.com
               </a>
 
               <span>Service Area</span>
@@ -983,7 +983,7 @@ function App() {
       {/* MOBILE CTA */}
       <div className="mobile-bottom-bar">
 
-        <a href="tel:+10000000000">
+        <a href="tel:+15625072586">
           <Icon name="phone" size={18} />
           Call
         </a>
