@@ -954,7 +954,7 @@ function App() {
               <h4>Contact</h4>
 
               <a href="tel:+15625072586">
-                (000) 000-0000
+                (562) 507-2586
               </a>
 
               <a href="mailto:lscleaningservices1845@gmail.com">
