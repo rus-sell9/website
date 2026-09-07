@@ -1,17 +1,203 @@
 import { useState } from "react";
 import "./App.css";
 
+const services = [
+  {
+    number: "01",
+    title: "Residential Cleaning",
+    description:
+      "A dependable clean for kitchens, bathrooms, bedrooms, living spaces, and the details that make your home feel fresh.",
+    icon: "home",
+  },
+  {
+    number: "02",
+    title: "Deep Cleaning",
+    description:
+      "A more detailed clean for homes that need extra attention, including hard-to-reach areas and built-up dirt.",
+    icon: "sparkles",
+  },
+  {
+    number: "03",
+    title: "Move-In / Move-Out",
+    description:
+      "Get your space ready for the next chapter with a thorough clean before moving in or handing over the keys.",
+    icon: "box",
+  },
+  {
+    number: "04",
+    title: "Commercial Cleaning",
+    description:
+      "Professional cleaning support for offices and other commercial spaces that need a clean, presentable environment.",
+    icon: "building",
+  },
+];
+
+const benefits = [
+  {
+    title: "Reliable Service",
+    description:
+      "We believe showing up on time and communicating clearly should be part of every professional cleaning experience.",
+    icon: "check",
+  },
+  {
+    title: "Attention to Detail",
+    description:
+      "We focus on the areas that are easy to overlook so your space feels genuinely clean—not just quickly cleaned.",
+    icon: "sparkles",
+  },
+  {
+    title: "Flexible Cleaning",
+    description:
+      "Choose the type of cleaning that fits your home, schedule, and specific needs.",
+    icon: "calendar",
+  },
+];
+
+const steps = [
+  {
+    number: "01",
+    title: "Request a Quote",
+    description:
+      "Tell us a little about your space and the cleaning service you need.",
+  },
+  {
+    number: "02",
+    title: "Choose Your Service",
+    description:
+      "We'll help you determine the right cleaning option for your needs.",
+  },
+  {
+    number: "03",
+    title: "We Clean",
+    description:
+      "Our team arrives ready to leave your space looking fresh and cared for.",
+  },
+];
+
+function Icon({ name, size = 24 }) {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.8",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": true,
+  };
+
+  switch (name) {
+    case "home":
+      return (
+        <svg {...common}>
+          <path d="m3 10 9-7 9 7" />
+          <path d="M5 9v11h14V9" />
+          <path d="M9 20v-6h6v6" />
+        </svg>
+      );
+
+    case "sparkles":
+      return (
+        <svg {...common}>
+          <path d="m12 3-1.2 4.1L7 8.3l3.8 1.2L12 14l1.2-4.5L17 8.3l-3.8-1.2L12 3Z" />
+          <path d="m19 14-.7 2.3-2.3.7 2.3.7.7 2.3.7-2.3 2.3-.7-2.3-.7L19 14Z" />
+          <path d="m5 14-.5 1.5L3 16l1.5.5L5 18l.5-1.5L7 16l-1.5-.5L5 14Z" />
+        </svg>
+      );
+
+    case "box":
+      return (
+        <svg {...common}>
+          <path d="m21 8-9 5-9-5 9-5 9 5Z" />
+          <path d="M3 8v8l9 5 9-5V8" />
+          <path d="M12 13v8" />
+        </svg>
+      );
+
+    case "building":
+      return (
+        <svg {...common}>
+          <path d="M4 21V5l8-3v19" />
+          <path d="M12 9h8v12" />
+          <path d="M7 7h2M7 11h2M7 15h2M15 13h2M15 17h2" />
+        </svg>
+      );
+
+    case "check":
+      return (
+        <svg {...common}>
+          <circle cx="12" cy="12" r="9" />
+          <path d="m8 12 2.5 2.5L16 9" />
+        </svg>
+      );
+
+    case "calendar":
+      return (
+        <svg {...common}>
+          <rect x="3" y="5" width="18" height="16" rx="2" />
+          <path d="M16 3v4M8 3v4M3 10h18" />
+        </svg>
+      );
+
+    case "arrow":
+      return (
+        <svg {...common}>
+          <path d="M5 12h13" />
+          <path d="m13 6 6 6-6 6" />
+        </svg>
+      );
+
+    case "phone":
+      return (
+        <svg {...common}>
+          <path d="M5 4h3l2 5-2 1.5a14 14 0 0 0 5.5 5.5L15 14l5 2v3c0 1.1-.9 2-2 2C10.3 21 3 13.7 3 5c0-1.1.9-2 2-2Z" />
+        </svg>
+      );
+
+    case "mail":
+      return (
+        <svg {...common}>
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="m3 7 9 6 9-6" />
+        </svg>
+      );
+
+    case "menu":
+      return (
+        <svg {...common}>
+          <path d="M4 7h16M4 12h16M4 17h16" />
+        </svg>
+      );
+
+    case "close":
+      return (
+        <svg {...common}>
+          <path d="m6 6 12 12M18 6 6 18" />
+        </svg>
+      );
+
+    default:
+      return null;
+  }
+}
+
 function App() {
   const [status, setStatus] = useState("");
-  const [statusType, setStatusType] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   const handleQuoteSubmit = async (event) => {
     event.preventDefault();
 
     setLoading(true);
     setStatus("Sending...");
-    setStatusType("sending");
 
     const form = event.target;
     const formData = new FormData(form);
@@ -36,17 +222,18 @@ function App() {
 
       const data = await response.json();
 
+      console.log("Web3Forms response:", data);
+
       if (response.ok && data.success) {
         setStatus(
           "Thank you! Your quote request has been sent successfully."
         );
-        setStatusType("success");
+
         form.reset();
       } else {
         setStatus(
           data.message || "Something went wrong. Please try again."
         );
-        setStatusType("error");
       }
     } catch (error) {
       console.error("Form error:", error);
@@ -54,106 +241,170 @@ function App() {
       setStatus(
         "Unable to send your request. Please try again."
       );
-      setStatusType("error");
     }
 
     setLoading(false);
   };
 
-  const scrollToContact = () => {
-    document.getElementById("contact")?.scrollIntoView({
-      behavior: "smooth",
-    });
-  };
-
   return (
-    <>
+    <div className="site">
       {/* NAVIGATION */}
-      <header className="site-header">
-        <div className="container nav-container">
-          <a href="#" className="logo">
-            <span className="logo-sl">SL</span>
-            <span className="logo-text">
-              CLEANING
-              <small>SERVICES</small>
+      <header className="navbar">
+        <div className="container navbar-inner">
+          <button
+            className="brand"
+            onClick={() => scrollTo("top")}
+            aria-label="SL Cleaning Services home"
+          >
+            <span className="brand-mark">
+              <Icon name="sparkles" size={21} />
             </span>
-          </a>
 
-          <nav className="desktop-nav">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#about">About</a>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#contact">Contact</a>
+            <span className="brand-text">
+              <strong>SL</strong>
+              <span>Cleaning Services</span>
+            </span>
+          </button>
+
+          <nav className="desktop-nav" aria-label="Main navigation">
+            <button onClick={() => scrollTo("services")}>
+              Services
+            </button>
+
+            <button onClick={() => scrollTo("about")}>
+              About
+            </button>
+
+            <button onClick={() => scrollTo("process")}>
+              How It Works
+            </button>
+
+            <button onClick={() => scrollTo("contact")}>
+              Contact
+            </button>
           </nav>
 
-          <button
-            className="button button-blue nav-quote"
-            onClick={scrollToContact}
-          >
-            Get a Quote
-          </button>
+          <div className="nav-actions">
+            <a className="nav-phone" href="tel:+10000000000">
+              <Icon name="phone" size={17} />
+              <span>Call Us</span>
+            </a>
+
+            <button
+              className="button button-small"
+              onClick={() => scrollTo("contact")}
+            >
+              Get a Quote
+            </button>
+          </div>
         </div>
       </header>
 
       {/* HERO */}
-      <main>
+      <main id="top">
+        <section className="hero">
+          <div className="hero-background" />
 
-        <section className="hero-section" id="home">
           <div className="container hero-grid">
-
-            <div className="hero-copy">
-              <span className="section-label">
-                PROFESSIONAL CLEANING SERVICES
-              </span>
+            <div className="hero-content">
+              <div className="eyebrow">
+                <span className="eyebrow-dot" />
+                Professional Cleaning Services
+              </div>
 
               <h1>
                 A cleaner space.
-                <span> A better feeling.</span>
+                <br />
+                <span>More time for you.</span>
               </h1>
 
-              <p>
-                Reliable, professional cleaning services for
-                homes, apartments, offices, and buildings.
-                We make your space shine so you can focus
-                on what matters.
+              <p className="hero-description">
+                Reliable residential and commercial cleaning services designed
+                to give your space the care and attention it deserves.
               </p>
 
               <div className="hero-buttons">
                 <button
-                  className="button button-blue"
-                  onClick={scrollToContact}
+                  className="button button-primary"
+                  onClick={() => scrollTo("contact")}
                 >
-                  Request a Free Quote
-                  <span>→</span>
+                  Get a Free Quote
+                  <Icon name="arrow" size={19} />
                 </button>
 
                 <a
-                  href="tel:5625072586"
                   className="button button-outline"
+                  href="tel:+10000000000"
                 >
-                  Call 562-507-2586
+                  <Icon name="phone" size={18} />
+                  Call Us
                 </a>
+              </div>
+
+              <div className="trust-row">
+                <div className="trust-item">
+                  <span className="trust-icon">✓</span>
+                  <span>Professional service</span>
+                </div>
+
+                <div className="trust-item">
+                  <span className="trust-icon">✓</span>
+                  <span>Flexible scheduling</span>
+                </div>
+
+                <div className="trust-item">
+                  <span className="trust-icon">✓</span>
+                  <span>Free estimates</span>
+                </div>
               </div>
             </div>
 
-            <div className="hero-card">
-              <div className="hero-card-accent"></div>
+            <div className="hero-visual">
+              <div className="hero-image-card">
+                <img
+                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85"
+                  alt="Professional cleaner cleaning a home"
+                />
 
-              <span>QUALITY YOU CAN TRUST</span>
+                <div className="hero-floating-card">
+                  <div className="floating-icon">
+                    <Icon name="sparkles" size={20} />
+                  </div>
 
-              <h2>
-                We don't just clean.
-                <br />
-                <strong>We care.</strong>
-              </h2>
+                  <div>
+                    <strong>Fresh. Clean. Ready.</strong>
+                    <span>That's the SL standard.</span>
+                  </div>
+                </div>
+              </div>
 
-              <p>
-                Professional service with attention
-                to every detail.
-              </p>
+              <div className="hero-accent" />
+            </div>
+          </div>
+        </section>
+
+        {/* TRUST BAR */}
+        <section className="trust-bar">
+          <div className="container trust-bar-inner">
+            <div>
+              <span className="trust-bar-number">01</span>
+              <span>Professional Care</span>
             </div>
 
+            <div>
+              <span className="trust-bar-number">02</span>
+              <span>Attention to Detail</span>
+            </div>
+
+            <div>
+              <span className="trust-bar-number">03</span>
+              <span>Easy Communication</span>
+            </div>
+
+            <div>
+              <span className="trust-bar-number">04</span>
+              <span>Customer Focused</span>
+            </div>
           </div>
         </section>
 
@@ -163,147 +414,127 @@ function App() {
           id="services"
         >
           <div className="container">
-
             <div className="section-heading">
-              <span className="section-label">
-                OUR SERVICES
-              </span>
+              <div>
+                <span className="section-label">
+                  OUR SERVICES
+                </span>
 
-              <h2>
-                Cleaning made simple.
-              </h2>
+                <h2>
+                  Cleaning that fits your needs.
+                </h2>
+              </div>
 
               <p>
-                Professional cleaning solutions designed
-                around your needs.
+                From routine home cleaning to detailed deep cleans, we provide
+                dependable service for spaces that deserve to feel their best.
               </p>
             </div>
 
             <div className="services-grid">
+              {services.map((service) => (
+                <article
+                  className="service-card"
+                  key={service.number}
+                >
+                  <div className="service-card-top">
+                    <span className="service-number">
+                      {service.number}
+                    </span>
 
-              <article className="service-card">
-                <div className="service-icon blue-icon">
-                  ✦
-                </div>
+                    <span className="service-icon">
+                      <Icon
+                        name={service.icon}
+                        size={25}
+                      />
+                    </span>
+                  </div>
 
-                <h3>Residential Cleaning</h3>
+                  <h3>{service.title}</h3>
 
-                <p>
-                  Keep your home fresh, clean, and
-                  comfortable with dependable residential
-                  cleaning.
-                </p>
-              </article>
+                  <p>{service.description}</p>
 
-              <article className="service-card">
-                <div className="service-icon pink-icon">
-                  ✦
-                </div>
-
-                <h3>Building Cleaning</h3>
-
-                <p>
-                  Professional cleaning for offices,
-                  buildings, and commercial spaces.
-                </p>
-              </article>
-
-              <article className="service-card">
-                <div className="service-icon blue-icon">
-                  ✦
-                </div>
-
-                <h3>Unit Cleaning</h3>
-
-                <p>
-                  Detailed cleaning for apartments,
-                  rental units, and move-in or move-out
-                  needs.
-                </p>
-              </article>
-
-              <article className="service-card">
-                <div className="service-icon pink-icon">
-                  ✦
-                </div>
-
-                <h3>Recurring Cleaning</h3>
-
-                <p>
-                  Weekly or bi-weekly service to keep
-                  your space consistently clean.
-                </p>
-              </article>
-
+                  <button
+                    className="text-link"
+                    onClick={() => scrollTo("contact")}
+                  >
+                    Get a quote
+                    <Icon name="arrow" size={17} />
+                  </button>
+                </article>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* ABOUT */}
+        {/* ABOUT / WHY US */}
         <section
           className="section about-section"
           id="about"
         >
           <div className="container about-grid">
+            <div className="about-image">
+              <img
+                src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=1000&q=85"
+                alt="Clean and bright home interior"
+              />
 
-            <div className="about-card">
-              <span className="about-number">SL</span>
-
-              <div>
-                <strong>Professional</strong>
-                <small>Reliable & Detail-Oriented</small>
+              <div className="about-badge">
+                <strong>SL</strong>
+                <span>Cleaning Services</span>
               </div>
             </div>
 
-            <div className="about-copy">
+            <div className="about-content">
               <span className="section-label">
-                WHY SL CLEANING SERVICES
+                WHY SL CLEANING
               </span>
 
               <h2>
-                Your space deserves
-                <span> the best.</span>
+                We don't just clean.
+                <br />
+                <span>
+                  We care about the result.
+                </span>
               </h2>
 
-              <p>
-                At SL Cleaning Services, we believe a
-                clean environment makes a real difference.
-                That's why we focus on reliable service,
-                attention to detail, and treating every
-                space with care.
+              <p className="lead">
+                A professional cleaning service should make your life easier.
+                That's why our approach is centered around dependable service,
+                clear communication, and attention to the details.
               </p>
 
-              <div className="about-points">
+              <div className="benefits">
+                {benefits.map((benefit) => (
+                  <div
+                    className="benefit"
+                    key={benefit.title}
+                  >
+                    <div className="benefit-icon">
+                      <Icon
+                        name={benefit.icon}
+                        size={20}
+                      />
+                    </div>
 
-                <div>
-                  <strong>01</strong>
-                  <span>Reliable service</span>
-                </div>
-
-                <div>
-                  <strong>02</strong>
-                  <span>Attention to detail</span>
-                </div>
-
-                <div>
-                  <strong>03</strong>
-                  <span>Customer focused</span>
-                </div>
-
+                    <div>
+                      <h3>{benefit.title}</h3>
+                      <p>{benefit.description}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
           </div>
         </section>
 
-        {/* HOW IT WORKS */}
+        {/* PROCESS */}
         <section
           className="section process-section"
-          id="how-it-works"
+          id="process"
         >
           <div className="container">
-
-            <div className="section-heading">
+            <div className="center-heading">
               <span className="section-label">
                 HOW IT WORKS
               </span>
@@ -313,55 +544,88 @@ function App() {
               </h2>
 
               <p>
-                Getting your space professionally cleaned
-                couldn't be easier.
+                Getting professional cleaning shouldn't be complicated.
               </p>
             </div>
 
             <div className="steps">
+              {steps.map((step, index) => (
+                <div
+                  className="step"
+                  key={step.number}
+                >
+                  <div className="step-number">
+                    {step.number}
+                  </div>
 
-              <div className="step">
-                <div className="step-number">
-                  01
+                  <div className="step-content">
+                    <h3>{step.title}</h3>
+                    <p>{step.description}</p>
+                  </div>
+
+                  {index !== steps.length - 1 && (
+                    <div className="step-line" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* TESTIMONIAL */}
+        <section className="testimonial-section">
+          <div className="container">
+            <div className="testimonial-card">
+              <div className="quote-mark">“</div>
+
+              <div className="testimonial-content">
+                <div className="stars">
+                  ★★★★★
                 </div>
 
-                <div>
-                  <h3>Request a Quote</h3>
-                  <p>
-                    Tell us what you need using our quick
-                    quote form.
-                  </p>
+                <blockquote>
+                  Your real customer reviews should go here. Replace this
+                  placeholder with an authentic Google or customer testimonial.
+                </blockquote>
+
+                <div className="testimonial-author">
+                  <div className="author-avatar">
+                    SL
+                  </div>
+
+                  <div>
+                    <strong>Customer Name</strong>
+                    <span>Verified Customer</span>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <div className="step">
-                <div className="step-number">
-                  02
-                </div>
+        {/* SERVICE AREA */}
+        <section className="service-area">
+          <div className="container service-area-inner">
+            <div>
+              <span className="section-label light">
+                SERVICE AREA
+              </span>
 
-                <div>
-                  <h3>Choose Your Service</h3>
-                  <p>
-                    We'll help you choose the cleaning
-                    service that fits your needs.
-                  </p>
-                </div>
-              </div>
+              <h2>
+                Proudly serving your local community.
+              </h2>
 
-              <div className="step">
-                <div className="step-number">
-                  03
-                </div>
+              <p>
+                Add the exact cities, neighborhoods, or ZIP codes SL Cleaning
+                Services currently serves here.
+              </p>
+            </div>
 
-                <div>
-                  <h3>We Clean</h3>
-                  <p>
-                    Sit back and relax while we take
-                    care of the cleaning.
-                  </p>
-                </div>
-              </div>
-
+            <div className="area-list">
+              <span>City / Area 01</span>
+              <span>City / Area 02</span>
+              <span>City / Area 03</span>
+              <span>City / Area 04</span>
             </div>
           </div>
         </section>
@@ -374,7 +638,6 @@ function App() {
           <div className="container contact-grid">
 
             <div className="contact-copy">
-
               <span className="section-label">
                 GET STARTED
               </span>
@@ -384,52 +647,34 @@ function App() {
               </h2>
 
               <p>
-                Request your free quote today. Tell us
-                what you need and we'll help you find
-                the right cleaning service.
+                Tell us what you need and we'll get back to you with the next
+                steps.
               </p>
 
               <div className="contact-details">
 
-                <a href="tel:5625072586">
-                  <span className="contact-icon blue-icon">
-                    ☎
+                <a href="tel:+10000000000">
+                  <span className="contact-icon">
+                    <Icon name="phone" size={20} />
                   </span>
 
                   <span>
                     <small>Call us</small>
-                    <strong>562-507-2586</strong>
+                    <strong>
+                      (000) 000-0000
+                    </strong>
                   </span>
                 </a>
 
-                <a
-                  href="mailto:lscleaningservices1845@gmail.com"
-                >
-                  <span className="contact-icon pink-icon">
-                    ✉
+                <a href="mailto:hello@slcleaningservices.online">
+                  <span className="contact-icon">
+                    <Icon name="mail" size={20} />
                   </span>
 
                   <span>
                     <small>Email us</small>
                     <strong>
-                      lscleaningservices1845@gmail.com
-                    </strong>
-                  </span>
-                </a>
-
-                <a
-                  href="https://slcleaningservices.online"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span className="contact-icon blue-icon">
-                    ◉
-                  </span>
-
-                  <span>
-                    <small>Visit us online</small>
-                    <strong>
-                      slcleaningservices.online
+                      hello@slcleaningservices.online
                     </strong>
                   </span>
                 </a>
@@ -443,25 +688,23 @@ function App() {
               onSubmit={handleQuoteSubmit}
             >
 
-              <div className="form-accent"></div>
+              <div className="form-header">
+                <span>FREE QUOTE</span>
 
-              <span className="form-label">
-                FREE QUOTE
-              </span>
-
-              <h3>
-                Tell us about your cleaning needs.
-              </h3>
+                <h3>
+                  Tell us about your cleaning needs.
+                </h3>
+              </div>
 
               <div className="form-grid">
 
                 <label>
-                  <span>Name</span>
+                  <span>Your name</span>
 
                   <input
                     type="text"
                     name="name"
-                    placeholder="Your name"
+                    placeholder="John Smith"
                     autoComplete="name"
                     required
                   />
@@ -480,7 +723,7 @@ function App() {
                   />
                 </label>
 
-                <label className="full">
+                <label>
                   <span>Email</span>
 
                   <input
@@ -493,7 +736,7 @@ function App() {
                 </label>
 
                 <label>
-                  <span>Service Needed</span>
+                  <span>Service</span>
 
                   <select
                     name="service"
@@ -511,52 +754,39 @@ function App() {
                       Residential Cleaning
                     </option>
 
-                    <option value="Building Cleaning">
-                      Building Cleaning
+                    <option value="Deep Cleaning">
+                      Deep Cleaning
                     </option>
 
-                    <option value="Unit Cleaning">
-                      Unit Cleaning
+                    <option value="Move-In / Move-Out">
+                      Move-In / Move-Out
                     </option>
 
-                    <option value="Weekly Cleaning">
-                      Weekly Cleaning
+                    <option value="Commercial Cleaning">
+                      Commercial Cleaning
                     </option>
 
-                    <option value="Bi-Weekly Cleaning">
-                      Bi-Weekly Cleaning
+                    <option value="Other">
+                      Other
                     </option>
                   </select>
                 </label>
 
-                <label>
-                  <span>Address / City</span>
-
-                  <input
-                    type="text"
-                    name="location"
-                    placeholder="City or service address"
-                    autoComplete="street-address"
-                    required
-                  />
-                </label>
-
                 <label className="full">
-                  <span>Message</span>
+                  <span>Tell us more</span>
 
                   <textarea
                     name="message"
-                    rows="5"
-                    placeholder="Tell us about the cleaning service you need..."
-                    required
-                  ></textarea>
+                    rows="4"
+                    placeholder="Tell us about your space and what you need cleaned..."
+                  />
                 </label>
 
               </div>
 
               <button
+                className="button button-primary form-button"
                 type="submit"
-                className="button button-blue form-button"
                 disabled={loading}
               >
                 {loading
@@ -564,18 +794,26 @@ function App() {
                   : "Request My Free Quote"}
 
                 {!loading && (
-                  <span>→</span>
+                  <Icon
+                    name="arrow"
+                    size={18}
+                  />
                 )}
               </button>
 
               <p className="form-note">
-                No obligation. We'll contact you to
-                discuss your cleaning needs.
+                No obligation. We'll contact you to discuss your cleaning needs.
               </p>
 
               {status && (
                 <div
-                  className={`form-status ${statusType}`}
+                  className={`form-status ${
+                    status === "Sending..."
+                      ? "sending"
+                      : status.includes("successfully")
+                      ? "success"
+                      : "error"
+                  }`}
                   role="status"
                 >
                   {status}
@@ -583,60 +821,111 @@ function App() {
               )}
 
             </form>
-
           </div>
         </section>
-
       </main>
 
       {/* FOOTER */}
-      <footer className="site-footer">
-        <div className="container footer-content">
+      <footer className="footer">
+        <div className="container">
 
-          <div>
-            <strong>
-              SL CLEANING SERVICES
-            </strong>
+          <div className="footer-main">
 
-            <p>
-              Professional cleaning services you can
-              count on.
-            </p>
+            <div className="footer-brand">
+
+              <div className="brand footer-brand-logo">
+                <span className="brand-mark">
+                  <Icon name="sparkles" size={20} />
+                </span>
+
+                <span className="brand-text">
+                  <strong>SL</strong>
+                  <span>Cleaning Services</span>
+                </span>
+              </div>
+
+              <p>
+                Professional cleaning services focused on quality, reliability,
+                and making your space feel its best.
+              </p>
+
+            </div>
+
+            <div className="footer-column">
+              <h4>Navigation</h4>
+
+              <button
+                onClick={() => scrollTo("services")}
+              >
+                Services
+              </button>
+
+              <button
+                onClick={() => scrollTo("about")}
+              >
+                About
+              </button>
+
+              <button
+                onClick={() => scrollTo("process")}
+              >
+                How It Works
+              </button>
+
+              <button
+                onClick={() => scrollTo("contact")}
+              >
+                Contact
+              </button>
+            </div>
+
+            <div className="footer-column">
+              <h4>Contact</h4>
+
+              <a href="tel:+10000000000">
+                (000) 000-0000
+              </a>
+
+              <a href="mailto:hello@slcleaningservices.online">
+                hello@slcleaningservices.online
+              </a>
+
+              <span>Service Area</span>
+            </div>
+
           </div>
 
-          <div className="footer-contact">
-            <a href="tel:5625072586">
-              562-507-2586
-            </a>
+          <div className="footer-bottom">
+            <span>
+              © {new Date().getFullYear()} SL Cleaning Services.
+              All rights reserved.
+            </span>
 
-            <a href="mailto:lscleaningservices1845@gmail.com">
-              lscleaningservices1845@gmail.com
-            </a>
+            <span>
+              Professional cleaning. Personal care.
+            </span>
           </div>
 
-        </div>
-
-        <div className="container footer-bottom">
-          <span>
-            © {new Date().getFullYear()} SL Cleaning
-            Services. All rights reserved.
-          </span>
         </div>
       </footer>
 
-      {/* MOBILE BOTTOM BAR */}
+      {/* MOBILE CTA */}
       <div className="mobile-bottom-bar">
 
-        <a href="tel:5625072586">
-          ☎ Call Us
+        <a href="tel:+10000000000">
+          <Icon name="phone" size={18} />
+          Call
         </a>
 
-        <button onClick={scrollToContact}>
-          Get Free Quote →
+        <button
+          onClick={() => scrollTo("contact")}
+        >
+          Get Free Quote
+          <Icon name="arrow" size={17} />
         </button>
 
       </div>
-    </>
+    </div>
   );
 }
 
