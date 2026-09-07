@@ -107,7 +107,7 @@ function Contact() {
                     type="tel"
                     name="phone"
                     className="form-control"
-                    placeholder="(000) 000-0000"
+                    placeholder="(562) 507-2586"
                     required
                   />
                 </div>
