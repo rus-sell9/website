@@ -2,7 +2,6 @@ import { useState } from "react";
 
 function Contact() {
   const [status, setStatus] = useState("");
-  const [statusType, setStatusType] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
@@ -10,17 +9,19 @@ function Contact() {
 
     setLoading(true);
     setStatus("Sending...");
-    setStatusType("sending");
 
     const form = event.target;
     const formData = new FormData(form);
 
     const object = Object.fromEntries(formData);
 
-    // Web3Forms
     object.access_key = import.meta.env.VITE_WEB3FORMS_KEY;
+
     object.subject = "New Quote Request - SL CLEANING SERVICES";
+
     object.from_name = "SL CLEANING SERVICES Website";
+
+    const json = JSON.stringify(object);
 
     try {
       const response = await fetch(
@@ -31,7 +32,7 @@ function Contact() {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: JSON.stringify(object),
+          body: json,
         }
       );
 
@@ -43,15 +44,12 @@ function Contact() {
         setStatus(
           "Thank you! Your quote request has been sent successfully."
         );
-        setStatusType("success");
 
         form.reset();
       } else {
         setStatus(
-          data.message ||
-            "Something went wrong. Please try again."
+          data.message || "Something went wrong. Please try again."
         );
-        setStatusType("error");
       }
     } catch (error) {
       console.error("Form error:", error);
@@ -59,265 +57,156 @@ function Contact() {
       setStatus(
         "Unable to send your request. Please try again."
       );
-      setStatusType("error");
     }
 
     setLoading(false);
   };
 
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="bg-light">
       <div className="container">
 
-        {/* HEADER */}
-        <div className="contact-heading">
-          <span className="section-eyebrow">
-            FREE QUOTE
-          </span>
+        <div className="text-center mb-5">
+          <h2 className="fw-bold">Request a Quote</h2>
 
-          <h2>Request a Quote</h2>
-
-          <p>
-            Tell us about your cleaning needs and we'll
-            get back to you shortly.
+          <p className="text-muted">
+            Tell us what cleaning service you need.
           </p>
         </div>
 
-        {/* CONTACT CONTENT */}
-        <div className="contact-wrapper">
+        <div className="row justify-content-center">
+          <div className="col-lg-8">
 
-          {/* LEFT SIDE */}
-          <div className="contact-info">
+            <form
+              onSubmit={handleSubmit}
+              className="bg-white p-4 p-md-5 rounded-4 shadow-sm"
+            >
 
-            <div className="contact-accent"></div>
+              <div className="row g-3">
 
-            <h3>
-              Let's make your space shine.
-            </h3>
+                <div className="col-md-6">
+                  <label className="form-label">
+                    Name
+                  </label>
 
-            <p>
-              Whether you need residential cleaning,
-              building cleaning, or recurring service,
-              we're here to help.
-            </p>
-
-            <div className="contact-details">
-
-              {/* PHONE */}
-              <a href="tel:5625072586">
-                <span className="contact-icon blue">
-                  ☎
-                </span>
-
-                <div>
-                  <small>CALL US</small>
-                  <strong>562-507-2586</strong>
+                  <input
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder="Your name"
+                    required
+                  />
                 </div>
-              </a>
 
-              {/* EMAIL */}
-              <a
-                href="mailto:lscleaningservices1845@gmail.com"
-              >
-                <span className="contact-icon pink">
-                  ✉
-                </span>
+                <div className="col-md-6">
+                  <label className="form-label">
+                    Phone
+                  </label>
 
-                <div>
-                  <small>EMAIL US</small>
-
-                  <strong>
-                    lscleaningservices1845@gmail.com
-                  </strong>
+                  <input
+                    type="tel"
+                    name="phone"
+                    className="form-control"
+                    placeholder="(000) 000-0000"
+                    required
+                  />
                 </div>
-              </a>
 
-            </div>
-          </div>
+                <div className="col-12">
+                  <label className="form-label">
+                    Email
+                  </label>
 
-          {/* FORM */}
-          <form
-            onSubmit={handleSubmit}
-            className="quote-form"
-          >
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder="you@example.com"
+                    required
+                  />
+                </div>
 
-            <div className="form-grid">
+                <div className="col-12">
+                  <label className="form-label">
+                    Service Needed
+                  </label>
 
-              {/* NAME */}
-              <div className="form-field">
-
-                <label htmlFor="name">
-                  Name
-                </label>
-
-                <input
-                  id="name"
-                  type="text"
-                  name="name"
-                  placeholder="Your name"
-                  autoComplete="name"
-                  required
-                />
-
-              </div>
-
-              {/* PHONE */}
-              <div className="form-field">
-
-                <label htmlFor="phone">
-                  Phone
-                </label>
-
-                <input
-                  id="phone"
-                  type="tel"
-                  name="phone"
-                  placeholder="(000) 000-0000"
-                  autoComplete="tel"
-                  inputMode="tel"
-                  required
-                />
-
-              </div>
-
-              {/* EMAIL */}
-              <div className="form-field full">
-
-                <label htmlFor="email">
-                  Email
-                </label>
-
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  placeholder="you@example.com"
-                  autoComplete="email"
-                  required
-                />
-
-              </div>
-
-              {/* SERVICE */}
-              <div className="form-field">
-
-                <label htmlFor="service">
-                  Service Needed
-                </label>
-
-                <select
-                  id="service"
-                  name="service"
-                  defaultValue=""
-                  required
-                >
-
-                  <option
-                    value=""
-                    disabled
+                  <select
+                    name="service"
+                    className="form-select"
+                    required
                   >
-                    Select a service
-                  </option>
+                    <option value="">
+                      Select a service
+                    </option>
 
-                  <option value="Residential Cleaning">
-                    Residential Cleaning
-                  </option>
+                    <option value="Residential Cleaning">
+                      Residential Cleaning
+                    </option>
 
-                  <option value="Building Cleaning">
-                    Building Cleaning
-                  </option>
+                    <option value="Building Cleaning">
+                      Building Cleaning
+                    </option>
 
-                  <option value="Unit Cleaning">
-                    Unit Cleaning
-                  </option>
-
-                  <option value="Weekly Cleaning">
-                    Weekly Cleaning
-                  </option>
-
-                  <option value="Bi-Weekly Cleaning">
-                    Bi-Weekly Cleaning
-                  </option>
-
-                </select>
-
-              </div>
-
-              {/* LOCATION */}
-              <div className="form-field">
-
-                <label htmlFor="location">
-                  Address / City
-                </label>
-
-                <input
-                  id="location"
-                  type="text"
-                  name="location"
-                  placeholder="City or service address"
-                  autoComplete="street-address"
-                  required
-                />
-
-              </div>
-
-              {/* MESSAGE */}
-              <div className="form-field full">
-
-                <label htmlFor="message">
-                  Message
-                </label>
-
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="5"
-                  placeholder="Tell us about the cleaning service you need..."
-                  required
-                ></textarea>
-
-              </div>
-
-              {/* SUBMIT */}
-              <div className="form-submit full">
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="quote-submit"
-                >
-
-                  {loading
-                    ? "Sending..."
-                    : "Request My Free Quote"}
-
-                  {!loading && (
-                    <span>→</span>
-                  )}
-
-                </button>
-
-                <p className="form-note">
-                  No obligation. We'll contact you
-                  to discuss your cleaning needs.
-                </p>
-
-              </div>
-
-              {/* STATUS MESSAGE */}
-              {status && (
-                <div
-                  className={`form-status ${statusType} full`}
-                  role="status"
-                >
-                  {status}
+                    <option value="Unit Cleaning">
+                      Unit Cleaning
+                    </option>
+                  </select>
                 </div>
-              )}
 
-            </div>
+                <div className="col-12">
+                  <label className="form-label">
+                    Address / City
+                  </label>
 
-          </form>
+                  <input
+                    type="text"
+                    name="location"
+                    className="form-control"
+                    placeholder="City or service address"
+                    required
+                  />
+                </div>
 
+                <div className="col-12">
+                  <label className="form-label">
+                    Message
+                  </label>
+
+                  <textarea
+                    name="message"
+                    className="form-control"
+                    rows="5"
+                    placeholder="Tell us about the cleaning service you need..."
+                    required
+                  ></textarea>
+                </div>
+
+                <div className="col-12">
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-lg w-100"
+                    disabled={loading}
+                  >
+                    {loading
+                      ? "Sending..."
+                      : "Request Quote"}
+                  </button>
+                </div>
+
+                {status && (
+                  <div className="col-12">
+                    <div className="alert alert-info mb-0">
+                      {status}
+                    </div>
+                  </div>
+                )}
+
+              </div>
+
+            </form>
+
+          </div>
         </div>
 
       </div>
