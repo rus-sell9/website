@@ -1047,8 +1047,10 @@
   gap: 12px;
 }
 
-.area-list span {
+.area-list span,
+.area-list button {
   display: block;
+  width: 100%;
   padding: 14px 20px;
   color: #fff;
   background: rgba(255, 255, 255, 0.08);
@@ -1056,6 +1058,17 @@
   border-radius: 8px;
   font-size: 13px;
   font-weight: 700;
+  text-align: left;
+}
+
+.area-list button {
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.area-list button:hover {
+  background: var(--pink);
+  border-color: var(--pink);
 }
 
 .service-area h2 {
@@ -1830,3 +1843,4 @@
     transition-duration: 0.01ms !important;
   }
 }
+
