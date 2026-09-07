@@ -534,161 +534,219 @@ function App() {
           </div>
         </section>
 
-        {/* CONTACT */}
-        <section className="section contact-section" id="contact">
-          <div className="container contact-grid">
-            <div className="contact-copy">
-              <span className="section-label">GET STARTED</span>
-
-              <h2>Ready for a cleaner space?</h2>
-
-              <p>
-                Request your free quote today. Tell us what you need and we'll
-                help you find the right cleaning service.
-              </p>
-
-              <div className="contact-details">
-                <a href="tel:5625072586">
-                  <span className="contact-icon blue-icon">
-                    <Icon name="phone" size={20} />
-                  </span>
-
-                  <span>
-                    <small>Call us</small>
-                    <strong>562-507-2586</strong>
-                  </span>
-                </a>
-
-                <a href="mailto:lscleaningservices1845@gmail.com">
-                  <span className="contact-icon pink-icon">
-                    <Icon name="mail" size={20} />
-                  </span>
-
-                  <span>
-                    <small>Email us</small>
-                    <strong>lscleaningservices1845@gmail.com</strong>
-                  </span>
-                </a>
-
-                <a
-                  href="https://slcleaningservices.online"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span className="contact-icon blue-icon">
-                    <Icon name="globe" size={20} />
-                  </span>
-
-                  <span>
-                    <small>Visit us online</small>
-                    <strong>slcleaningservices.online</strong>
-                  </span>
-                </a>
-              </div>
-            </div>
-
-         <form
-  className="quote-form"
-  action="https://formsubmit.co/lscleaningservices1845@gmail.com"
-  method="POST"
+    {/* CONTACT */}
+<section
+  className="section contact-section"
+  id="contact"
 >
-  <input
-    type="hidden"
-    name="_subject"
-    value="New Quote Request - SL Cleaning Services"
-  />
+  <div className="container contact-grid">
 
-  <input
-    type="hidden"
-    name="_template"
-    value="table"
-  />
+    <div className="contact-copy">
 
-  <input
-    type="hidden"
-    name="_captcha"
-    value="false"
-  />
+      <span className="section-label">
+        GET STARTED
+      </span>
 
-  <input
-    type="hidden"
-    name="_next"
-    value="https://slcleaningservices.online/?quote=success"
-  />
-              <div className="form-accent" />
+      <h2>
+        Ready for a cleaner space?
+      </h2>
 
-              <span className="form-label">FREE QUOTE</span>
+      <p>
+        Request your free quote today. Tell us what
+        you need and we'll help you find the right
+        cleaning service.
+      </p>
 
-              <h3>Tell us about your cleaning needs.</h3>
+      <div className="contact-details">
 
-              <div className="form-grid">
-                <label>
-                  <span>Name</span>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your name"
-                    required
-                  />
-                </label>
+        <a href="tel:5625072586">
+          <span className="contact-icon blue-icon">
+            <Icon name="phone" size={20} />
+          </span>
 
-                <label>
-                  <span>Phone</span>
-                  <input
-                    type="tel"
-                    name="phone"
-                    placeholder="562-507-2586"
-                    required
-                  />
-                </label>
+          <span>
+            <small>Call us</small>
+            <strong>562-507-2586</strong>
+          </span>
+        </a>
 
-                <label>
-                  <span>Email</span>
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="you@example.com"
-                    required
-                  />
-                </label>
+        <a href="mailto:lscleaningservices1845@gmail.com">
+          <span className="contact-icon pink-icon">
+            <Icon name="mail" size={20} />
+          </span>
 
-                <label>
-                  <span>Service</span>
-                  <select name="service" defaultValue="" required>
-                    <option value="" disabled>
-                      Choose a service
-                    </option>
-                    <option>Residential Cleaning</option>
-                    <option>Building Cleaning</option>
-                    <option>Weekly Cleaning</option>
-                    <option>Bi-Weekly Cleaning</option>
-                  </select>
-                </label>
+          <span>
+            <small>Email us</small>
+            <strong>
+              lscleaningservices1845@gmail.com
+            </strong>
+          </span>
+        </a>
 
-                <label className="full">
-                  <span>Message</span>
-                  <textarea
-                    name="message"
-                    rows="4"
-                    placeholder="Tell us about your cleaning needs..."
-                  />
-                </label>
-              </div>
+        <a
+          href="https://slcleaningservices.online"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <span className="contact-icon blue-icon">
+            <Icon name="globe" size={20} />
+          </span>
 
-              <button
-                type="submit"
-                className="button button-blue form-button"
-              >
-                Request My Free Quote
-                <Icon name="arrow" size={18} />
-              </button>
+          <span>
+            <small>Visit us online</small>
+            <strong>
+              slcleaningservices.online
+            </strong>
+          </span>
+        </a>
 
-              <p className="form-note">
-                No obligation. We'll contact you to discuss your needs.
-              </p>
-            </form>
-          </div>
-        </section>
+      </div>
+
+    </div>
+
+    {/* QUOTE FORM */}
+    <form
+      className="quote-form"
+      onSubmit={handleQuoteSubmit}
+    >
+
+      <div className="form-accent"></div>
+
+      <span className="form-label">
+        FREE QUOTE
+      </span>
+
+      <h3>
+        Tell us about your cleaning needs.
+      </h3>
+
+      <div className="form-grid">
+
+        <label>
+          <span>Name</span>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your name"
+            autoComplete="name"
+            required
+          />
+        </label>
+
+        <label>
+          <span>Phone</span>
+          <input
+            type="tel"
+            name="phone"
+            placeholder="(000) 000-0000"
+            autoComplete="tel"
+            inputMode="tel"
+            required
+          />
+        </label>
+
+        <label className="full">
+          <span>Email</span>
+          <input
+            type="email"
+            name="email"
+            placeholder="you@example.com"
+            autoComplete="email"
+            required
+          />
+        </label>
+
+        <label>
+          <span>Service Needed</span>
+
+          <select
+            name="service"
+            defaultValue=""
+            required
+          >
+            <option value="" disabled>
+              Select a service
+            </option>
+
+            <option value="Residential Cleaning">
+              Residential Cleaning
+            </option>
+
+            <option value="Building Cleaning">
+              Building Cleaning
+            </option>
+
+            <option value="Unit Cleaning">
+              Unit Cleaning
+            </option>
+
+            <option value="Weekly Cleaning">
+              Weekly Cleaning
+            </option>
+
+            <option value="Bi-Weekly Cleaning">
+              Bi-Weekly Cleaning
+            </option>
+          </select>
+        </label>
+
+        <label>
+          <span>Address / City</span>
+
+          <input
+            type="text"
+            name="location"
+            placeholder="City or service address"
+            autoComplete="street-address"
+            required
+          />
+        </label>
+
+        <label className="full">
+          <span>Message</span>
+
+          <textarea
+            name="message"
+            rows="5"
+            placeholder="Tell us about the cleaning service you need..."
+            required
+          ></textarea>
+        </label>
+
+      </div>
+
+      <button
+        type="submit"
+        className="button button-blue form-button"
+        disabled={loading}
+      >
+        {loading
+          ? "Sending..."
+          : "Request My Free Quote"}
+
+        {!loading && (
+          <Icon name="arrow" size={18} />
+        )}
+      </button>
+
+      <p className="form-note">
+        No obligation. We'll contact you to discuss
+        your cleaning needs.
+      </p>
+
+      {status && (
+        <div
+          className={`form-status ${statusType}`}
+          role="status"
+        >
+          {status}
+        </div>
+      )}
+
+    </form>
+
+  </div>
+</section>
       </main>
 
       {/* FOOTER */}
