@@ -1566,6 +1566,7 @@
   }
 
   .steps {
+    grid-template-columns: 1fr;
     gap: 35px;
   }
 
