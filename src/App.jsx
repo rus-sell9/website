@@ -217,7 +217,7 @@ function App() {
           </nav>
 
           <div className="nav-actions">
-            <a className="nav-phone" href="tel:+10000000000">
+            <a className="nav-phone" href="tel:+1 (562) 507-2586">
               <Icon name="phone" size={17} />
               <span>Call Us</span>
             </a>
@@ -264,7 +264,7 @@ function App() {
                   <Icon name="arrow" size={19} />
                 </button>
 
-                <a className="button button-outline" href="tel:+10000000000">
+                <a className="button button-outline" href="tel: +1 (562) 507-2586">
                   <Icon name="phone" size={18} />
                   Call Us
                 </a>
@@ -520,14 +520,14 @@ function App() {
               </p>
 
               <div className="contact-details">
-                <a href="tel:+10000000000">
+                <a href="tel:+1 (562) 507-2586">
                   <span className="contact-icon">
                     <Icon name="phone" size={20} />
                   </span>
 
                   <span>
                     <small>Call us</small>
-                    <strong>(000) 000-0000</strong>
+                    <strong> (562) 507-2586</strong>
                   </span>
                 </a>
 
@@ -572,7 +572,7 @@ function App() {
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="(000) 000-0000"
+                    placeholder="(562) 507-2586"
                     required
                   />
                 </label>
@@ -656,7 +656,7 @@ function App() {
 
             <div className="footer-column">
               <h4>Contact</h4>
-              <a href="tel:+10000000000">(000) 000-0000</a>
+              <a href="tel:+15625072586">(562) 507-2586</a>
               <a href="mailto:hello@slcleaningservices.online">
                 hello@slcleaningservices.online
               </a>
@@ -673,7 +673,7 @@ function App() {
 
       {/* MOBILE CTA */}
       <div className="mobile-bottom-bar">
-        <a href="tel:+10000000000">
+        <a href="tel:+15625072586">
           <Icon name="phone" size={18} />
           Call
         </a>
