@@ -716,7 +716,7 @@ function App() {
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="(562) 507-2586"
+                    placeholder="(000) 000-0000"
                     autoComplete="tel"
                     inputMode="tel"
                     required
