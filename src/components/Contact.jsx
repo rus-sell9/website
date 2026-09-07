@@ -17,11 +17,10 @@ function Contact() {
 
     const object = Object.fromEntries(formData);
 
+    // Web3Forms
     object.access_key = import.meta.env.VITE_WEB3FORMS_KEY;
     object.subject = "New Quote Request - SL CLEANING SERVICES";
     object.from_name = "SL CLEANING SERVICES Website";
-
-    const json = JSON.stringify(object);
 
     try {
       const response = await fetch(
@@ -32,7 +31,7 @@ function Contact() {
             "Content-Type": "application/json",
             Accept: "application/json",
           },
-          body: json,
+          body: JSON.stringify(object),
         }
       );
 
@@ -44,7 +43,6 @@ function Contact() {
         setStatus(
           "Thank you! Your quote request has been sent successfully."
         );
-
         setStatusType("success");
 
         form.reset();
@@ -53,7 +51,6 @@ function Contact() {
           data.message ||
             "Something went wrong. Please try again."
         );
-
         setStatusType("error");
       }
     } catch (error) {
@@ -62,7 +59,6 @@ function Contact() {
       setStatus(
         "Unable to send your request. Please try again."
       );
-
       setStatusType("error");
     }
 
@@ -73,14 +69,13 @@ function Contact() {
     <section id="contact" className="contact-section">
       <div className="container">
 
+        {/* HEADER */}
         <div className="contact-heading">
           <span className="section-eyebrow">
             FREE QUOTE
           </span>
 
-          <h2>
-            Request a Quote
-          </h2>
+          <h2>Request a Quote</h2>
 
           <p>
             Tell us about your cleaning needs and we'll
@@ -88,8 +83,10 @@ function Contact() {
           </p>
         </div>
 
+        {/* CONTACT CONTENT */}
         <div className="contact-wrapper">
 
+          {/* LEFT SIDE */}
           <div className="contact-info">
 
             <div className="contact-accent"></div>
@@ -106,6 +103,7 @@ function Contact() {
 
             <div className="contact-details">
 
+              {/* PHONE */}
               <a href="tel:5625072586">
                 <span className="contact-icon blue">
                   ☎
@@ -117,13 +115,17 @@ function Contact() {
                 </div>
               </a>
 
-              <a href="mailto:lscleaningservices1845@gmail.com">
+              {/* EMAIL */}
+              <a
+                href="mailto:lscleaningservices1845@gmail.com"
+              >
                 <span className="contact-icon pink">
                   ✉
                 </span>
 
                 <div>
                   <small>EMAIL US</small>
+
                   <strong>
                     lscleaningservices1845@gmail.com
                   </strong>
@@ -131,9 +133,9 @@ function Contact() {
               </a>
 
             </div>
-
           </div>
 
+          {/* FORM */}
           <form
             onSubmit={handleSubmit}
             className="quote-form"
@@ -143,6 +145,7 @@ function Contact() {
 
               {/* NAME */}
               <div className="form-field">
+
                 <label htmlFor="name">
                   Name
                 </label>
@@ -155,10 +158,12 @@ function Contact() {
                   autoComplete="name"
                   required
                 />
+
               </div>
 
               {/* PHONE */}
               <div className="form-field">
+
                 <label htmlFor="phone">
                   Phone
                 </label>
@@ -172,10 +177,12 @@ function Contact() {
                   inputMode="tel"
                   required
                 />
+
               </div>
 
               {/* EMAIL */}
               <div className="form-field full">
+
                 <label htmlFor="email">
                   Email
                 </label>
@@ -188,10 +195,12 @@ function Contact() {
                   autoComplete="email"
                   required
                 />
+
               </div>
 
               {/* SERVICE */}
               <div className="form-field">
+
                 <label htmlFor="service">
                   Service Needed
                 </label>
@@ -202,7 +211,11 @@ function Contact() {
                   defaultValue=""
                   required
                 >
-                  <option value="" disabled>
+
+                  <option
+                    value=""
+                    disabled
+                  >
                     Select a service
                   </option>
 
@@ -225,11 +238,14 @@ function Contact() {
                   <option value="Bi-Weekly Cleaning">
                     Bi-Weekly Cleaning
                   </option>
+
                 </select>
+
               </div>
 
               {/* LOCATION */}
               <div className="form-field">
+
                 <label htmlFor="location">
                   Address / City
                 </label>
@@ -242,10 +258,12 @@ function Contact() {
                   autoComplete="street-address"
                   required
                 />
+
               </div>
 
               {/* MESSAGE */}
               <div className="form-field full">
+
                 <label htmlFor="message">
                   Message
                 </label>
@@ -257,9 +275,10 @@ function Contact() {
                   placeholder="Tell us about the cleaning service you need..."
                   required
                 ></textarea>
+
               </div>
 
-              {/* BUTTON */}
+              {/* SUBMIT */}
               <div className="form-submit full">
 
                 <button
@@ -267,6 +286,7 @@ function Contact() {
                   disabled={loading}
                   className="quote-submit"
                 >
+
                   {loading
                     ? "Sending..."
                     : "Request My Free Quote"}
@@ -274,6 +294,7 @@ function Contact() {
                   {!loading && (
                     <span>→</span>
                   )}
+
                 </button>
 
                 <p className="form-note">
@@ -283,7 +304,7 @@ function Contact() {
 
               </div>
 
-              {/* STATUS */}
+              {/* STATUS MESSAGE */}
               {status && (
                 <div
                   className={`form-status ${statusType} full`}
