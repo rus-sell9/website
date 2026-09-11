@@ -210,7 +210,7 @@ function Icon({ name, size = 24 }) {
 }
 
 function App() {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const scrollTo = (id) => {
@@ -223,12 +223,20 @@ function App() {
   const handleQuoteSubmit = async (event) => {
     event.preventDefault();
 
-    setLoading(true);
-    setStatus("Sending...");
-
     const form = event.target;
     const formData = new FormData(form);
     const object = Object.fromEntries(formData);
+
+    // Honeypot: real users leave this empty. If it's filled, it's a bot —
+    // silently pretend success so the bot doesn't learn it was blocked.
+    if (object.botcheck) {
+      setStatus({ type: "success", message: "Thank you! Your quote request has been sent successfully." });
+      form.reset();
+      return;
+    }
+
+    setLoading(true);
+    setStatus({ type: "sending", message: "Sending your request..." });
 
     object.access_key = import.meta.env.VITE_WEB3FORMS_KEY;
     object.subject = "New Quote Request - SL CLEANING SERVICES";
@@ -249,25 +257,26 @@ function App() {
 
       const data = await response.json();
 
-      console.log("Web3Forms response:", data);
-
       if (response.ok && data.success) {
-        setStatus(
-          "Thank you! Your quote request has been sent successfully."
-        );
+        setStatus({
+          type: "success",
+          message: "Thank you! Your quote request has been sent. We'll be in touch shortly.",
+        });
 
         form.reset();
       } else {
-        setStatus(
-          data.message || "Something went wrong. Please try again."
-        );
+        setStatus({
+          type: "error",
+          message: data.message || "Something went wrong. Please try again.",
+        });
       }
     } catch (error) {
       console.error("Form error:", error);
 
-      setStatus(
-        "Unable to send your request. Please try again."
-      );
+      setStatus({
+        type: "error",
+        message: "Unable to send your request. Please call or email us instead.",
+      });
     }
 
     setLoading(false);
@@ -767,6 +776,16 @@ function App() {
                 </h3>
               </div>
 
+              {/* Honeypot: hidden from real users, catches automated bots */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                style={{ display: "none" }}
+              />
+
               <div className="form-grid">
 
                 <label>
@@ -878,16 +897,11 @@ function App() {
 
               {status && (
                 <div
-                  className={`form-status ${
-                    status === "Sending..."
-                      ? "sending"
-                      : status.includes("successfully")
-                      ? "success"
-                      : "error"
-                  }`}
+                  className={`form-status ${status.type}`}
                   role="status"
+                  aria-live="polite"
                 >
-                  {status}
+                  {status.message}
                 </div>
               )}
 
