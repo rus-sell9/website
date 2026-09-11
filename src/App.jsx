@@ -564,6 +564,143 @@ function App() {
           </div>
         </section>
 
+        {/* TRUST SIGNALS */}
+        <section className="assurance-section" aria-label="Our commitments">
+          <div className="container assurance-grid">
+            <div className="assurance-item">
+              <span className="assurance-icon">
+                <Icon name="check" size={26} />
+              </span>
+              <div>
+                <strong>Licensed &amp; Insured</strong>
+                <span>Fully covered for your peace of mind on every visit.</span>
+              </div>
+            </div>
+
+            <div className="assurance-item">
+              <span className="assurance-icon">
+                <Icon name="sparkles" size={26} />
+              </span>
+              <div>
+                <strong>Satisfaction Guaranteed</strong>
+                <span>Not happy with a spot? We&apos;ll make it right.</span>
+              </div>
+            </div>
+
+            <div className="assurance-item">
+              <span className="assurance-icon">
+                <Icon name="calendar" size={26} />
+              </span>
+              <div>
+                <strong>Flexible Scheduling</strong>
+                <span>One-time, weekly, or monthly cleans that fit your life.</span>
+              </div>
+            </div>
+
+            <div className="assurance-item">
+              <span className="assurance-icon">
+                <Icon name="phone" size={26} />
+              </span>
+              <div>
+                <strong>Easy Communication</strong>
+                <span>Clear updates before, during, and after every clean.</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* PRICING */}
+        <section className="section pricing-section" id="pricing">
+          <div className="container">
+            <div className="center-heading">
+              <span className="section-label">PRICING</span>
+
+              <h2>Simple, transparent pricing.</h2>
+
+              <p>
+                Every home is different, so final pricing is based on size and
+                condition. These starting points give you a general idea.
+              </p>
+            </div>
+
+            <div className="pricing-grid">
+              <article className="pricing-card">
+                <span className="pricing-name">Standard Clean</span>
+                <div className="pricing-price">
+                  <span className="pricing-from">Starting at</span>
+                  <strong>$XXX</strong>
+                </div>
+                <p className="pricing-desc">
+                  Regular upkeep for kitchens, bathrooms, and living spaces.
+                </p>
+                <ul className="pricing-features">
+                  <li>Dusting &amp; surface wipe-down</li>
+                  <li>Floors vacuumed &amp; mopped</li>
+                  <li>Kitchen &amp; bathroom cleaning</li>
+                  <li>Trash removed</li>
+                </ul>
+                <button
+                  className="button button-outline pricing-button"
+                  onClick={() => scrollTo("contact")}
+                >
+                  Get a Quote
+                </button>
+              </article>
+
+              <article className="pricing-card pricing-card-featured">
+                <span className="pricing-badge">Most Popular</span>
+                <span className="pricing-name">Deep Clean</span>
+                <div className="pricing-price">
+                  <span className="pricing-from">Starting at</span>
+                  <strong>$XXX</strong>
+                </div>
+                <p className="pricing-desc">
+                  A detailed, top-to-bottom clean for built-up dirt and grime.
+                </p>
+                <ul className="pricing-features">
+                  <li>Everything in Standard</li>
+                  <li>Baseboards &amp; hard-to-reach areas</li>
+                  <li>Inside appliances on request</li>
+                  <li>Detailed scrubbing &amp; sanitizing</li>
+                </ul>
+                <button
+                  className="button button-primary pricing-button"
+                  onClick={() => scrollTo("contact")}
+                >
+                  Get a Quote
+                </button>
+              </article>
+
+              <article className="pricing-card">
+                <span className="pricing-name">Move In / Out</span>
+                <div className="pricing-price">
+                  <span className="pricing-from">Starting at</span>
+                  <strong>$XXX</strong>
+                </div>
+                <p className="pricing-desc">
+                  A complete reset for an empty home before or after a move.
+                </p>
+                <ul className="pricing-features">
+                  <li>Everything in Deep Clean</li>
+                  <li>Inside cabinets &amp; drawers</li>
+                  <li>Interior windows &amp; sills</li>
+                  <li>Move-ready finish</li>
+                </ul>
+                <button
+                  className="button button-outline pricing-button"
+                  onClick={() => scrollTo("contact")}
+                >
+                  Get a Quote
+                </button>
+              </article>
+            </div>
+
+            <p className="pricing-note">
+              Final pricing confirmed after a quick, no-obligation quote.
+            </p>
+          </div>
+        </section>
+
         {/* PROCESS */}
         <section
           className="section process-section"
