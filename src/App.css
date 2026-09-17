@@ -1189,6 +1189,73 @@
 
 
 /* =========================================================
+   SERVICE SURVEY
+========================================================= */
+
+.survey-main {
+  padding: 70px 0 110px;
+}
+
+.survey-form {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.disclaimer-box {
+  margin: 0 0 28px;
+  padding: 14px 18px;
+  color: #7a5b00;
+  background: #fff6dd;
+  border: 1px solid #f3dd9a;
+  border-radius: 10px;
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+
+.disclaimer-box strong {
+  color: #5c4400;
+}
+
+.star-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.star-field > span {
+  color: #4c627a;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.star-rating {
+  display: flex;
+  gap: 6px;
+}
+
+.star-rating .star {
+  padding: 0;
+  color: #d7e1ec;
+  background: none;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.star-rating .star:hover {
+  transform: scale(1.1);
+}
+
+.star-rating .star.filled {
+  color: var(--pink);
+}
+
+
+/* =========================================================
    CONTACT
 ========================================================= */
 
@@ -1317,7 +1384,8 @@
   gap: 7px;
 }
 
-.form-grid label.full {
+.form-grid label.full,
+.form-grid .full {
   grid-column: 1 / -1;
 }
 
@@ -1377,31 +1445,27 @@
 }
 
 .form-status {
-  margin: 14px 0 0;
+  margin-top: 16px;
   padding: 12px 16px;
-  border-radius: 12px;
-  font-size: 14px;
-  line-height: 1.5;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
   text-align: center;
-  border: 1px solid transparent;
 }
 
 .form-status.sending {
-  color: var(--blue-dark);
+  color: var(--blue);
   background: var(--blue-light);
-  border-color: var(--blue);
 }
 
 .form-status.success {
-  color: #146c43;
-  background: #e5f6ec;
-  border-color: #a3d9b8;
+  color: #1a7a4c;
+  background: #e3f7ec;
 }
 
 .form-status.error {
-  color: #b02a37;
-  background: #fdecee;
-  border-color: #f1aeb5;
+  color: #b3261e;
+  background: #fbe9e7;
 }
 
 
@@ -1867,7 +1931,8 @@
     grid-template-columns: 1fr;
   }
 
-  .form-grid label.full {
+  .form-grid label.full,
+  .form-grid .full {
     grid-column: auto;
   }
 
@@ -1937,4 +2002,3 @@
     transition-duration: 0.01ms !important;
   }
 }
-
