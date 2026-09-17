@@ -9,6 +9,7 @@ function Survey() {
   const [errorMessage, setErrorMessage] = useState("");
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const [leaveClicked, setLeaveClicked] = useState(false);
 
   const handleSurveySubmit = async (event) => {
     event.preventDefault();
@@ -67,8 +68,10 @@ function Survey() {
 
   const handleLeave = () => {
     // Most browsers only allow a script to close a tab it opened itself,
-    // so this will quietly no-op in that case — the note under the
-    // button covers that fallback.
+    // so this will quietly no-op if the person navigated here normally
+    // (clicked a link, typed the URL, etc). The fallback message below
+    // covers that case.
+    setLeaveClicked(true);
     window.close();
   };
 
@@ -362,23 +365,26 @@ function Survey() {
                   Go back home
                 </Link>
 
-                <button
-                  className="button button-outline"
-                  type="button"
-                  onClick={handleLeave}
-                >
-                  <Icon
-                    name="close"
-                    size={18}
-                  />
-                  Leave the website
-                </button>
+                {!leaveClicked && (
+                  <button
+                    className="button button-outline"
+                    type="button"
+                    onClick={handleLeave}
+                  >
+                    <Icon
+                      name="close"
+                      size={18}
+                    />
+                    Leave the website
+                  </button>
+                )}
               </div>
 
-              <small className="survey-close-note">
-                If "Leave the website" doesn't close this tab automatically,
-                you can safely close it yourself.
-              </small>
+              {leaveClicked && (
+                <p className="survey-leave-confirm">
+                  You're all set — you can close this tab now.
+                </p>
+              )}
             </div>
           )}
         </div>
