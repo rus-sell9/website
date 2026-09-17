@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Icon from "./Icon";
 import "./App.css";
 
 const services = [
@@ -101,116 +102,8 @@ const gallery = [
   },
 ];
 
-function Icon({ name, size = 24 }) {
-  const common = {
-    width: size,
-    height: size,
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "1.8",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    "aria-hidden": true,
-  };
-
-  switch (name) {
-    case "home":
-      return (
-        <svg {...common}>
-          <path d="m3 10 9-7 9 7" />
-          <path d="M5 9v11h14V9" />
-          <path d="M9 20v-6h6v6" />
-        </svg>
-      );
-
-    case "sparkles":
-      return (
-        <svg {...common}>
-          <path d="m12 3-1.2 4.1L7 8.3l3.8 1.2L12 14l1.2-4.5L17 8.3l-3.8-1.2L12 3Z" />
-          <path d="m19 14-.7 2.3-2.3.7 2.3.7.7 2.3.7-2.3 2.3-.7-2.3-.7L19 14Z" />
-          <path d="m5 14-.5 1.5L3 16l1.5.5L5 18l.5-1.5L7 16l-1.5-.5L5 14Z" />
-        </svg>
-      );
-
-    case "box":
-      return (
-        <svg {...common}>
-          <path d="m21 8-9 5-9-5 9-5 9 5Z" />
-          <path d="M3 8v8l9 5 9-5V8" />
-          <path d="M12 13v8" />
-        </svg>
-      );
-
-    case "building":
-      return (
-        <svg {...common}>
-          <path d="M4 21V5l8-3v19" />
-          <path d="M12 9h8v12" />
-          <path d="M7 7h2M7 11h2M7 15h2M15 13h2M15 17h2" />
-        </svg>
-      );
-
-    case "check":
-      return (
-        <svg {...common}>
-          <circle cx="12" cy="12" r="9" />
-          <path d="m8 12 2.5 2.5L16 9" />
-        </svg>
-      );
-
-    case "calendar":
-      return (
-        <svg {...common}>
-          <rect x="3" y="5" width="18" height="16" rx="2" />
-          <path d="M16 3v4M8 3v4M3 10h18" />
-        </svg>
-      );
-
-    case "arrow":
-      return (
-        <svg {...common}>
-          <path d="M5 12h13" />
-          <path d="m13 6 6 6-6 6" />
-        </svg>
-      );
-
-    case "phone":
-      return (
-        <svg {...common}>
-          <path d="M5 4h3l2 5-2 1.5a14 14 0 0 0 5.5 5.5L15 14l5 2v3c0 1.1-.9 2-2 2C10.3 21 3 13.7 3 5c0-1.1.9-2 2-2Z" />
-        </svg>
-      );
-
-    case "mail":
-      return (
-        <svg {...common}>
-          <rect x="3" y="5" width="18" height="14" rx="2" />
-          <path d="m3 7 9 6 9-6" />
-        </svg>
-      );
-
-    case "menu":
-      return (
-        <svg {...common}>
-          <path d="M4 7h16M4 12h16M4 17h16" />
-        </svg>
-      );
-
-    case "close":
-      return (
-        <svg {...common}>
-          <path d="m6 6 12 12M18 6 6 18" />
-        </svg>
-      );
-
-    default:
-      return null;
-  }
-}
-
 function App() {
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
 
   const scrollTo = (id) => {
@@ -223,20 +116,12 @@ function App() {
   const handleQuoteSubmit = async (event) => {
     event.preventDefault();
 
+    setLoading(true);
+    setStatus("Sending...");
+
     const form = event.target;
     const formData = new FormData(form);
     const object = Object.fromEntries(formData);
-
-    // Honeypot: real users leave this empty. If it's filled, it's a bot —
-    // silently pretend success so the bot doesn't learn it was blocked.
-    if (object.botcheck) {
-      setStatus({ type: "success", message: "Thank you! Your quote request has been sent successfully." });
-      form.reset();
-      return;
-    }
-
-    setLoading(true);
-    setStatus({ type: "sending", message: "Sending your request..." });
 
     object.access_key = import.meta.env.VITE_WEB3FORMS_KEY;
     object.subject = "New Quote Request - SL CLEANING SERVICES";
@@ -257,26 +142,25 @@ function App() {
 
       const data = await response.json();
 
+      console.log("Web3Forms response:", data);
+
       if (response.ok && data.success) {
-        setStatus({
-          type: "success",
-          message: "Thank you! Your quote request has been sent. We'll be in touch shortly.",
-        });
+        setStatus(
+          "Thank you! Your quote request has been sent successfully."
+        );
 
         form.reset();
       } else {
-        setStatus({
-          type: "error",
-          message: data.message || "Something went wrong. Please try again.",
-        });
+        setStatus(
+          data.message || "Something went wrong. Please try again."
+        );
       }
     } catch (error) {
       console.error("Form error:", error);
 
-      setStatus({
-        type: "error",
-        message: "Unable to send your request. Please call or email us instead.",
-      });
+      setStatus(
+        "Unable to send your request. Please try again."
+      );
     }
 
     setLoading(false);
@@ -754,7 +638,7 @@ function App() {
                   <span>
                     <small>Email us</small>
                     <strong>
-                      lscleaningservices1845@gmail.com
+                      hello@slcleaningservices.online
                     </strong>
                   </span>
                 </a>
@@ -775,16 +659,6 @@ function App() {
                   Tell us about your cleaning needs.
                 </h3>
               </div>
-
-              {/* Honeypot: hidden from real users, catches automated bots */}
-              <input
-                type="checkbox"
-                name="botcheck"
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                style={{ display: "none" }}
-              />
 
               <div className="form-grid">
 
@@ -897,11 +771,16 @@ function App() {
 
               {status && (
                 <div
-                  className={`form-status ${status.type}`}
+                  className={`form-status ${
+                    status === "Sending..."
+                      ? "sending"
+                      : status.includes("successfully")
+                      ? "success"
+                      : "error"
+                  }`}
                   role="status"
-                  aria-live="polite"
                 >
-                  {status.message}
+                  {status}
                 </div>
               )}
 
