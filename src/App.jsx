@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Icon from "./Icon";
 import "./App.css";
 
@@ -105,8 +106,11 @@ const gallery = [
 function App() {
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const scrollTo = (id) => {
+    setMenuOpen(false);
+
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -199,9 +203,17 @@ function App() {
               How It Works
             </button>
 
+            <button onClick={() => scrollTo("work")}>
+              Our Work
+            </button>
+
             <button onClick={() => scrollTo("contact")}>
               Contact
             </button>
+
+            <Link to="/survey">
+              Leave a Review
+            </Link>
           </nav>
 
           <div className="nav-actions">
@@ -216,8 +228,51 @@ function App() {
             >
               Get a Quote
             </button>
+
+            <button
+              className="mobile-menu-button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={menuOpen}
+            >
+              <Icon name={menuOpen ? "close" : "menu"} size={22} />
+            </button>
           </div>
         </div>
+
+        {menuOpen && (
+          <nav
+            className="mobile-menu"
+            aria-label="Mobile navigation"
+          >
+            <button onClick={() => scrollTo("services")}>
+              Services
+            </button>
+
+            <button onClick={() => scrollTo("about")}>
+              About
+            </button>
+
+            <button onClick={() => scrollTo("process")}>
+              How It Works
+            </button>
+
+            <button onClick={() => scrollTo("work")}>
+              Our Work
+            </button>
+
+            <button onClick={() => scrollTo("contact")}>
+              Contact
+            </button>
+
+            <Link
+              to="/survey"
+              onClick={() => setMenuOpen(false)}
+            >
+              Leave a Review
+            </Link>
+          </nav>
+        )}
       </header>
 
       {/* HERO */}
@@ -533,37 +588,6 @@ function App() {
           </div>
         </section>
 
-        {/* TESTIMONIAL */}
-        <section className="testimonial-section">
-          <div className="container">
-            <div className="testimonial-card">
-              <div className="quote-mark">“</div>
-
-              <div className="testimonial-content">
-                <div className="stars">
-                  ★★★★★
-                </div>
-
-                <blockquote>
-                  Your real customer reviews should go here. Replace this
-                  placeholder with an authentic Google or customer testimonial.
-                </blockquote>
-
-                <div className="testimonial-author">
-                  <div className="author-avatar">
-                    SL
-                  </div>
-
-                  <div>
-                    <strong>Customer Name</strong>
-                    <span>Verified Customer</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* SERVICE AREA */}
         <section className="service-area">
           <div className="container service-area-inner">
@@ -837,10 +861,20 @@ function App() {
               </button>
 
               <button
+                onClick={() => scrollTo("work")}
+              >
+                Our Work
+              </button>
+
+              <button
                 onClick={() => scrollTo("contact")}
               >
                 Contact
               </button>
+
+              <Link to="/survey">
+                Leave a Review
+              </Link>
             </div>
 
             <div className="footer-column">
