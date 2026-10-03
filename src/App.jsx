@@ -662,7 +662,7 @@ function App() {
                   <span>
                     <small>Email us</small>
                     <strong>
-                      hello@slcleaningservices.online
+                      lscleaningservices1845@gmail.com
                     </strong>
                   </span>
                 </a>
