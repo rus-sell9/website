@@ -78,7 +78,7 @@ const steps = [
 
 const gallery = [
   {
-    src: "/public/kitchen_cleaned.jpeg",
+    src: "website/public/kitchen_cleaned.jpeg",
     caption: "Kitchen Deep Clean",
   },
   {
