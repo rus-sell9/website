@@ -82,24 +82,24 @@ const gallery = [
     caption: "Kitchen Deep Clean",
   },
   {
-    src: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/Living_Room_cleaned.jpeg",
     caption: "Living Room Refresh",
   },
   {
-    src: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/restroom_luxury.jpeg",
     caption: "Bathroom Detail Clean",
   },
   {
-    src: "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?auto=format&fit=crop&w=800&q=80",
+    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/room_cleaned.jpeg",
     caption: "Bedroom Tidy & Clean",
   },
   {
-    src: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/unit%C2%AD_cleaned.jpeg",
     caption: "Move-Out Cleaning",
   },
   {
-    src: "https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80",
-    caption: "Office Cleaning",
+    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/outside_porche_cleaned.jpeg",
+    caption: "Outside Cleaning",
   },
 ];
 
