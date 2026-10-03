@@ -78,7 +78,7 @@ const steps = [
 
 const gallery = [
   {
-    src: "https://github.com/rus-sell9/website/blob/de41ce54f0963b009b280199b5e00a8c73ef939e/public/kitchen_cleaned.jpeg",
+    src: "https://raw.githubusercontent.com/rus-sell9/website/de41ce54f0963b009b280199b5e00a8c73ef939e/public/kitchen_cleaned.jpeg",
     caption: "Kitchen Deep Clean",
   },
   {
