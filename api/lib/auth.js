@@ -3,7 +3,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { authenticator } from "otplib";
 
 const SESSION_COOKIE = "sl_admin_session";
-const SESSION_TTL_SEC = 60 * 60 * 8;
+const SESSION_TTL_SEC = 30 * 60; // 30 minutes
 const MAX_FAILS = 5;
 const LOCKOUT_MS = 15 * 60 * 1000;
 const ATTEMPTS_PATHNAME = "admin-auth-attempts.json";
