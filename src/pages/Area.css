@@ -1,0 +1,14 @@
+.area-header { padding: 16px 0; border-bottom: 1px solid var(--border); background: #fff; }
+.area-header-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.area-brand { color: var(--blue-dark); font-size: 18px; font-weight: 800; text-decoration: none; }
+.area-main { padding: 64px 0 96px; max-width: 820px; }
+.area-main h1 { color: var(--blue-dark); font-size: clamp(34px, 5vw, 56px); line-height: 1.1; }
+.area-main h2 { margin-top: 48px; color: var(--blue-dark); font-size: 26px; }
+.area-lead { margin: 18px 0 28px; color: var(--muted); font-size: 18px; line-height: 1.7; }
+.area-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.area-services { margin: 18px 0 0; padding: 0; list-style: none; }
+.area-services li { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+.area-services strong { color: var(--text-dark); }
+.area-services span { color: var(--muted); }
+.area-others { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; }
+.area-others a { color: var(--blue); }

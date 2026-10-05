@@ -87,6 +87,13 @@ export default function Icon({ name, size = 24 }) {
         </svg>
       );
 
+    case "message":
+      return (
+        <svg {...common}>
+          <path d="M5 5h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-7l-4 3v-3H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" />
+        </svg>
+      );
+
     case "menu":
       return (
         <svg {...common}>

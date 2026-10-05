@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
+import Testimonials from "./components/Testimonials";
+import BeforeAfter from "./components/BeforeAfter";
+import Faq from "./components/Faq";
+import { business, images, cities } from "./config";
 import "./App.css";
 
 const services = [
@@ -78,27 +82,27 @@ const steps = [
 
 const gallery = [
   {
-    src: "https://raw.githubusercontent.com/rus-sell9/website/de41ce54f0963b009b280199b5e00a8c73ef939e/public/kitchen_cleaned.jpeg",
+    src: "/kitchen_cleaned.webp",
     caption: "Kitchen Deep Clean",
   },
   {
-    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/Living_Room_cleaned.jpeg",
+    src: "/Living_Room_cleaned.webp",
     caption: "Living Room Refresh",
   },
   {
-    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/restroom_luxury.jpeg",
+    src: "/restroom_luxury.webp",
     caption: "Bathroom Detail Clean",
   },
   {
-    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/room_cleaned.jpeg",
+    src: "/room_cleaned.webp",
     caption: "Bedroom Tidy & Clean",
   },
   {
-    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/unit%C2%AD_cleaned.jpeg",
+    src: "/move_out_cleaned.webp",
     caption: "Move-Out Cleaning",
   },
   {
-    src: "https://raw.githubusercontent.com/rus-sell9/website/main/public/outside_porche_cleaned.jpeg",
+    src: "/outside_porche_cleaned.webp",
     caption: "Outside Cleaning",
   },
 ];
@@ -191,25 +195,25 @@ function App() {
           </button>
 
           <nav className="desktop-nav" aria-label="Main navigation">
-            <button onClick={() => scrollTo("services")}>
-              Services
-            </button>
+            <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo("services"); }}>
+Services
+</a>
 
-            <button onClick={() => scrollTo("about")}>
-              About
-            </button>
+            <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo("about"); }}>
+About
+</a>
 
-            <button onClick={() => scrollTo("process")}>
-              How It Works
-            </button>
+            <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo("process"); }}>
+How It Works
+</a>
 
-            <button onClick={() => scrollTo("work")}>
-              Our Work
-            </button>
+            <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("work"); }}>
+Our Work
+</a>
 
-            <button onClick={() => scrollTo("contact")}>
-              Contact
-            </button>
+            <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }}>
+Contact
+</a>
 
             <Link to="/survey">
               Leave a Review
@@ -217,7 +221,7 @@ function App() {
           </nav>
 
           <div className="nav-actions">
-            <a className="nav-phone" href="tel:+15625072586">
+            <a className="nav-phone" href={`tel:${business.phoneHref}`}>
               <Icon name="phone" size={17} />
               <span>Call Us</span>
             </a>
@@ -245,25 +249,25 @@ function App() {
             className="mobile-menu"
             aria-label="Mobile navigation"
           >
-            <button onClick={() => scrollTo("services")}>
-              Services
-            </button>
+            <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo("services"); }}>
+Services
+</a>
 
-            <button onClick={() => scrollTo("about")}>
-              About
-            </button>
+            <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo("about"); }}>
+About
+</a>
 
-            <button onClick={() => scrollTo("process")}>
-              How It Works
-            </button>
+            <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo("process"); }}>
+How It Works
+</a>
 
-            <button onClick={() => scrollTo("work")}>
-              Our Work
-            </button>
+            <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("work"); }}>
+Our Work
+</a>
 
-            <button onClick={() => scrollTo("contact")}>
-              Contact
-            </button>
+            <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }}>
+Contact
+</a>
 
             <Link
               to="/survey"
@@ -309,10 +313,18 @@ function App() {
 
                 <a
                   className="button button-outline"
-                  href="tel:+15625072586"
+                  href={`tel:${business.phoneHref}`}
                 >
                   <Icon name="phone" size={18} />
                   Call Us
+                </a>
+
+                <a
+                  className="button button-outline"
+                  href={`sms:${business.phoneHref}`}
+                >
+                  <Icon name="message" size={18} />
+                  Text Us
                 </a>
               </div>
 
@@ -337,8 +349,9 @@ function App() {
             <div className="hero-visual">
               <div className="hero-image-card">
                 <img
-                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85"
-                  alt="Professional cleaner cleaning a home"
+                  src={images.hero}
+                  alt="Living room and kitchen after a professional clean"
+                  fetchPriority="high"
                 />
 
                 <div className="hero-floating-card">
@@ -362,22 +375,22 @@ function App() {
         <section className="trust-bar">
           <div className="container trust-bar-inner">
             <div>
-              <span className="trust-bar-number">01</span>
+              <span className="trust-bar-number">✓</span>
               <span>Professional Care</span>
             </div>
 
             <div>
-              <span className="trust-bar-number">02</span>
+              <span className="trust-bar-number">✓</span>
               <span>Attention to Detail</span>
             </div>
 
             <div>
-              <span className="trust-bar-number">03</span>
+              <span className="trust-bar-number">✓</span>
               <span>Easy Communication</span>
             </div>
 
             <div>
-              <span className="trust-bar-number">04</span>
+              <span className="trust-bar-number">✓</span>
               <span>Customer Focused</span>
             </div>
           </div>
@@ -450,8 +463,9 @@ function App() {
           <div className="container about-grid">
             <div className="about-image">
               <img
-                src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?auto=format&fit=crop&w=1000&q=85"
-                alt="Clean and bright home interior"
+                src={images.about}
+                alt="Kitchen after a professional deep clean"
+                loading="lazy"
               />
 
               <div className="about-badge">
@@ -577,6 +591,8 @@ function App() {
                   <img
                     src={item.src}
                     alt={item.caption}
+                    loading="lazy"
+                    decoding="async"
                   />
 
                   <div className="gallery-caption">
@@ -587,6 +603,9 @@ function App() {
             </div>
           </div>
         </section>
+
+        <BeforeAfter />
+        <Testimonials />
 
         {/* SERVICE AREA */}
         <section className="service-area">
@@ -606,6 +625,14 @@ function App() {
                 Reach out anyway — we're happy to see if we can make it work
                 for your location.
               </p>
+
+              <p className="area-cities">
+                {cities.map((c) => (
+                  <Link key={c.slug} to={`/cleaning/${c.slug}`}>
+                    {c.name}
+                  </Link>
+                ))}
+              </p>
             </div>
 
             <div className="area-list">
@@ -617,6 +644,8 @@ function App() {
             </div>
           </div>
         </section>
+
+        <Faq />
 
         {/* CONTACT */}
         <section
@@ -641,7 +670,7 @@ function App() {
 
               <div className="contact-details">
 
-                <a href="tel:+15625072586">
+                <a href={`tel:${business.phoneHref}`}>
                   <span className="contact-icon">
                     <Icon name="phone" size={20} />
                   </span>
@@ -649,12 +678,25 @@ function App() {
                   <span>
                     <small>Call us</small>
                     <strong>
-                      (562) 507-2586
+                      {business.phone}
                     </strong>
                   </span>
                 </a>
 
-                <a href="mailto:lscleaningservices1845@gmail.com">
+                <a href={`sms:${business.phoneHref}`}>
+                  <span className="contact-icon">
+                    <Icon name="message" size={20} />
+                  </span>
+
+                  <span>
+                    <small>Text us</small>
+                    <strong>
+                      {business.phone}
+                    </strong>
+                  </span>
+                </a>
+
+                <a href={`mailto:${business.email}`}>
                   <span className="contact-icon">
                     <Icon name="mail" size={20} />
                   </span>
@@ -662,7 +704,7 @@ function App() {
                   <span>
                     <small>Email us</small>
                     <strong>
-                      lscleaningservices1845@gmail.com
+                      {business.email}
                     </strong>
                   </span>
                 </a>
@@ -724,6 +766,21 @@ function App() {
                 </label>
 
                 <label>
+                  <span>ZIP code</span>
+
+                  <input
+                    type="text"
+                    name="zip"
+                    placeholder="90802"
+                    autoComplete="postal-code"
+                    inputMode="numeric"
+                    pattern="[0-9]{5}"
+                    maxLength={5}
+                    required
+                  />
+                </label>
+
+                <label>
                   <span>Service</span>
 
                   <select
@@ -760,6 +817,71 @@ function App() {
                   </select>
                 </label>
 
+                <label>
+                  <span>How often?</span>
+
+                  <select
+                    name="frequency"
+                    defaultValue=""
+                    required
+                  >
+                    <option value="" disabled>
+                      Select frequency
+                    </option>
+                    <option value="One time">One time</option>
+                    <option value="Weekly">Weekly</option>
+                    <option value="Every 2 weeks">Every 2 weeks</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Bedrooms</span>
+
+                  <select name="bedrooms" defaultValue="">
+                    <option value="">Not sure / not applicable</option>
+                    <option value="Studio">Studio</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5+">5 or more</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Bathrooms</span>
+
+                  <select name="bathrooms" defaultValue="">
+                    <option value="">Not sure / not applicable</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4+">4 or more</option>
+                  </select>
+                </label>
+
+                <label>
+                  <span>Preferred date</span>
+
+                  <input
+                    type="date"
+                    name="preferred_date"
+                    min={new Date().toISOString().split("T")[0]}
+                  />
+                </label>
+
+                <label className="full">
+                  <span>Best time of day</span>
+
+                  <select name="preferred_time" defaultValue="Flexible">
+                    <option value="Flexible">Flexible</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                  </select>
+                </label>
+
                 <label className="full">
                   <span>Tell us more</span>
 
@@ -771,6 +893,14 @@ function App() {
                 </label>
 
               </div>
+
+              <input
+                type="checkbox"
+                name="botcheck"
+                tabIndex={-1}
+                autoComplete="off"
+                style={{ display: "none" }}
+              />
 
               <button
                 className="button button-primary form-button"
@@ -842,35 +972,25 @@ function App() {
             <div className="footer-column">
               <h4>Navigation</h4>
 
-              <button
-                onClick={() => scrollTo("services")}
-              >
-                Services
-              </button>
+              <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo("services"); }}>
+Services
+</a>
 
-              <button
-                onClick={() => scrollTo("about")}
-              >
-                About
-              </button>
+              <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo("about"); }}>
+About
+</a>
 
-              <button
-                onClick={() => scrollTo("process")}
-              >
-                How It Works
-              </button>
+              <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo("process"); }}>
+How It Works
+</a>
 
-              <button
-                onClick={() => scrollTo("work")}
-              >
-                Our Work
-              </button>
+              <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("work"); }}>
+Our Work
+</a>
 
-              <button
-                onClick={() => scrollTo("contact")}
-              >
-                Contact
-              </button>
+              <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }}>
+Contact
+</a>
 
               <Link to="/survey">
                 Leave a Review
@@ -880,12 +1000,12 @@ function App() {
             <div className="footer-column">
               <h4>Contact</h4>
 
-              <a href="tel:+15625072586">
-                (562) 507-2586
+              <a href={`tel:${business.phoneHref}`}>
+                {business.phone}
               </a>
 
-              <a href="mailto:lscleaningservices1845@gmail.com">
-                lscleaningservices1845@gmail.com
+              <a href={`mailto:${business.email}`}>
+                {business.email}
               </a>
 
               <span>Service Area</span>
@@ -910,9 +1030,14 @@ function App() {
       {/* MOBILE CTA */}
       <div className="mobile-bottom-bar">
 
-        <a href="tel:+15625072586">
+        <a href={`tel:${business.phoneHref}`}>
           <Icon name="phone" size={18} />
           Call
+        </a>
+
+        <a href={`sms:${business.phoneHref}`}>
+          <Icon name="message" size={18} />
+          Text
         </a>
 
         <button
