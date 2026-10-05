@@ -8,6 +8,7 @@ import Survey from "./pages/Survey";
 import Area from "./pages/Area";
 import Service from "./pages/Service";
 import Admin from "./pages/admin/Admin";
+import NotFound from "./pages/NotFound";
 import { servicePages } from "./config";
 import { Prefs } from "./i18n";
 import "./theme.css";
@@ -15,8 +16,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
-// Admin lives only on the subdomain (admin.slcleaningservices.online).
-// The main site never exposes /admin.
 function isAdminHost() {
   const h = (window.location.hostname || "").toLowerCase();
   return h === "admin.slcleaningservices.online" || h.startsWith("admin.");
@@ -42,9 +41,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             {servicePages.map((s) => (
               <Route key={s.slug} path={`/${s.slug}`} element={<Service slug={s.slug} />} />
             ))}
-            {/* Hide admin on the public domain */}
             <Route path="/admin" element={<Navigate to="/" replace />} />
             <Route path="/admin/*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </>
         )}
       </Routes>
