@@ -13,3 +13,30 @@
 .area-others { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; }
 .area-others a { color: var(--blue); }
 .area-header-actions { display: flex; align-items: center; gap: 12px; }
+
+/* Full-height 404 so no white strip under short content */
+.not-found-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--background, #fff);
+}
+.not-found-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+.not-found-main .area-lead {
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.not-found-main .area-actions {
+  justify-content: center;
+}
