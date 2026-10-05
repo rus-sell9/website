@@ -323,3 +323,61 @@ html:has(.admin-page) #root {
     grid-template-columns: 1fr;
   }
 }
+
+.admin-header-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.admin-session-timer {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  font-variant-numeric: tabular-nums;
+  min-width: 4.5rem;
+}
+
+.admin-session-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.admin-session-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #8fd4ff;
+}
+
+.admin-session-timer.warn {
+  border-color: rgba(255, 180, 60, 0.45);
+  background: rgba(255, 160, 40, 0.12);
+}
+
+.admin-session-timer.warn .admin-session-value {
+  color: #ffc857;
+}
+
+.admin-session-timer.critical {
+  border-color: rgba(255, 100, 100, 0.5);
+  background: rgba(180, 40, 40, 0.25);
+  animation: admin-pulse 1s ease-in-out infinite;
+}
+
+.admin-session-timer.critical .admin-session-value {
+  color: #ffb4b4;
+}
+
+@keyframes admin-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
