@@ -12,8 +12,17 @@ async function api(path, opts = {}) {
     headers: { "Content-Type": "application/json", ...(opts.headers || {}) },
     ...opts,
   });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || `Request failed (${res.status})`);
+  const text = await res.text();
+  let data = {};
+  try {
+    data = text ? JSON.parse(text) : {};
+  } catch {
+    data = { error: text ? text.slice(0, 200) : `Request failed (${res.status})` };
+  }
+  if (!res.ok) {
+    const msg = data.error || data.detail || `Request failed (${res.status})`;
+    throw new Error(msg);
+  }
   return data;
 }
 
