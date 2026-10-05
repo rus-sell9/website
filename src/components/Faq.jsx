@@ -1,4 +1,5 @@
 import { faqs } from "../config";
+import { Bi, T } from "../i18n";
 
 export default function Faq() {
   if (!faqs.length) return null;
@@ -7,14 +8,14 @@ export default function Faq() {
     <section className="section faq-section" id="faq">
       <div className="container">
         <div className="center-heading">
-          <span className="section-label">QUESTIONS</span>
-          <h2>Frequently asked questions.</h2>
+          <span className="section-label"><T k="QUESTIONS" /></span>
+          <h2><T k="Frequently asked questions." /></h2>
         </div>
         <div className="faq-list">
           {faqs.map((f) => (
             <details key={f.q}>
-              <summary>{f.q}</summary>
-              <p>{f.a}</p>
+              <summary><Bi en={f.q} es={f.es ? f.es.q : f.q} /></summary>
+              <p><Bi en={f.a} es={f.es ? f.es.a : f.a} /></p>
             </details>
           ))}
         </div>

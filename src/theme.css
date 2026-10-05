@@ -1,0 +1,192 @@
+/* =========================================================
+   LANGUAGE + THEME CONTROLS
+========================================================= */
+.controls { display: flex; align-items: center; gap: 8px; }
+
+.ctl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dark);
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+.ctl-btn:hover { border-color: var(--blue); transform: translateY(-1px); }
+.ctl-theme { width: 38px; }
+.ctl-lang { padding: 3px; gap: 2px; }
+.ctl-lang span { padding: 6px 9px; border-radius: 999px; color: var(--muted); transition: background 0.2s, color 0.2s; }
+.ctl-lang span.on { background: var(--blue); color: #fff; }
+
+.controls-floating {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 70;
+  padding: 6px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(7, 84, 165, 0.14);
+}
+
+@media (max-width: 600px) {
+  .nav-actions .controls { gap: 6px; }
+  .ctl-btn { height: 34px; }
+  .ctl-theme { width: 34px; }
+  .ctl-lang span { padding: 5px 7px; }
+}
+
+/* =========================================================
+   NIGHT MODE
+========================================================= */
+html { color-scheme: light; }
+html[data-theme="dark"] { color-scheme: dark; }
+
+html[data-theme="dark"] {
+  --background: #0a1424;
+  --section-blue: #0f1c30;
+  --section-pink: #1a1626;
+  --blue-light: #15283f;
+  --pink-light: #2a1a28;
+  --border: #243750;
+  --text: #c9d8e8;
+  --text-dark: #eaf2fb;
+  --muted: #9db0c4;
+  --blue: #5aaaff;
+  --blue-dark: #0c2a4d;
+  --blue-deep: #071a33;
+  --pink: #f08ab0;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .site,
+html[data-theme="dark"] .services-section,
+html[data-theme="dark"] .process-section,
+html[data-theme="dark"] .contact-section,
+html[data-theme="dark"] .survey-page,
+html[data-theme="dark"] .area-header { background: var(--background); color: var(--text); }
+
+html[data-theme="dark"] .hero {
+  background:
+    radial-gradient(circle at 85% 30%, rgba(240, 138, 176, 0.14), transparent 30%),
+    linear-gradient(120deg, #0a1424 0%, #0f1c30 100%);
+}
+
+html[data-theme="dark"] .navbar { background: rgba(10, 20, 36, 0.92); border-bottom-color: rgba(255, 255, 255, 0.08); }
+html[data-theme="dark"] .desktop-nav button,
+html[data-theme="dark"] .desktop-nav a { color: #a9bdd2; }
+html[data-theme="dark"] .desktop-nav button:hover,
+html[data-theme="dark"] .desktop-nav a:hover { color: #fff; }
+
+/* headings */
+html[data-theme="dark"] .hero h1,
+html[data-theme="dark"] .section-heading h2,
+html[data-theme="dark"] .center-heading h2,
+html[data-theme="dark"] .about-content h2,
+html[data-theme="dark"] .contact-copy h2,
+html[data-theme="dark"] .service-card h3,
+html[data-theme="dark"] .benefit h3,
+html[data-theme="dark"] .step h3,
+html[data-theme="dark"] .contact-details strong,
+html[data-theme="dark"] .quote-form h3,
+html[data-theme="dark"] .survey-stage-submitting h2,
+html[data-theme="dark"] .survey-stage-success h2,
+html[data-theme="dark"] .hero-floating-card strong,
+html[data-theme="dark"] .faq-list summary,
+html[data-theme="dark"] .review-card figcaption strong,
+html[data-theme="dark"] .area-brand,
+html[data-theme="dark"] .area-main h1,
+html[data-theme="dark"] .area-main h2 { color: var(--text-dark); }
+
+/* buttons */
+html[data-theme="dark"] .button-primary,
+html[data-theme="dark"] .hero-accent,
+html[data-theme="dark"] .step-number,
+html[data-theme="dark"] .ctl-lang span.on { background: #1b66c4; color: #fff; }
+html[data-theme="dark"] .button-primary:hover { background: #2477e0; }
+html[data-theme="dark"] .button-outline { color: var(--text-dark); background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.18); }
+html[data-theme="dark"] .hero-accent { border-color: var(--background); }
+html[data-theme="dark"] .trust-bar { background: #12447f; }
+html[data-theme="dark"] .trust-bar-number,
+html[data-theme="dark"] .strip-icon.blue { color: #0754a5; }
+
+/* cards and surfaces */
+html[data-theme="dark"] .trust-item { color: #9db0c4; }
+html[data-theme="dark"] .service-card { border-color: #1f334c; }
+html[data-theme="dark"] .service-card:hover { background: #13243b; border-color: rgba(90, 170, 255, 0.35); }
+html[data-theme="dark"] .service-card.pink-card { border-color: #3a2438; }
+html[data-theme="dark"] .service-number { color: #6f86a0; }
+html[data-theme="dark"] .service-icon,
+html[data-theme="dark"] .benefit-icon,
+html[data-theme="dark"] .contact-icon,
+html[data-theme="dark"] .blue-icon { background: #15283f; border-color: #243750; }
+html[data-theme="dark"] .pink-card .service-icon { border-color: #4a2c44; }
+html[data-theme="dark"] .hero-floating-card,
+html[data-theme="dark"] .gallery-item,
+html[data-theme="dark"] .review-card { background: #14243b; }
+html[data-theme="dark"] .step-line { border-top-color: #2a4160; }
+html[data-theme="dark"] .quote-form { border-color: #243750; }
+
+/* form */
+html[data-theme="dark"] .form-grid label > span { color: #9db0c4; }
+html[data-theme="dark"] .form-grid input,
+html[data-theme="dark"] .form-grid select,
+html[data-theme="dark"] .form-grid textarea { color: var(--text-dark); background: #0a1424; border-color: #2a4160; }
+html[data-theme="dark"] .form-grid input::placeholder,
+html[data-theme="dark"] .form-grid textarea::placeholder { color: #6f86a0; }
+html[data-theme="dark"] .form-note,
+html[data-theme="dark"] .contact-details small { color: #8499b0; }
+html[data-theme="dark"] .form-status.sending { color: #7fbaff; background: #15283f; }
+html[data-theme="dark"] .form-status.success { color: #7ee0aa; background: #0f3a28; }
+html[data-theme="dark"] .form-status.error { color: #ff9a92; background: #3d1714; }
+html[data-theme="dark"] .star-rating .star { color: #35506f; }
+html[data-theme="dark"] .star-rating .star.filled { color: var(--pink); }
+
+/* mobile menu */
+html[data-theme="dark"] .mobile-menu { background: #0a1424; }
+html[data-theme="dark"] .mobile-menu button,
+html[data-theme="dark"] .mobile-menu a { border-bottom-color: #1c2f48; }
+
+/* floating controls + images */
+html[data-theme="dark"] .controls-floating { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45); }
+html[data-theme="dark"] .hero-image-card img,
+html[data-theme="dark"] .about-image img,
+html[data-theme="dark"] .gallery-item img { filter: brightness(0.92); }
+
+/* smooth switch between day and night */
+.site, .navbar, .service-card, .quote-form, .hero-floating-card, .gallery-item, .review-card,
+.form-grid input, .form-grid select, .form-grid textarea {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* keep the mobile header uncluttered: the bottom bar already has the quote button */
+@media (max-width: 600px) {
+  .nav-actions .button-small { display: none; }
+}
+
+/* =========================================================
+   STABLE LAYOUT WHEN SWITCHING LANGUAGE
+   Both languages share one box (the larger of the two),
+   so nothing shifts when you switch.
+========================================================= */
+x-t.bi { display: inline-grid; max-width: 100%; }
+x-l { display: block; grid-area: 1 / 1; min-width: 0; }
+x-l.off { visibility: hidden; pointer-events: none; user-select: none; }
+.button x-t, .mobile-bottom-bar x-t, .ctl-btn x-t { text-align: center; }
+
+/* keep the header on one line in both languages */
+.desktop-nav { gap: clamp(14px, 2vw, 31px); margin-right: clamp(12px, 2.4vw, 35px); }
+.desktop-nav a, .desktop-nav button, .nav-actions .button, .nav-phone { white-space: nowrap; }
+.nav-actions { gap: clamp(8px, 1.2vw, 16px); }
+@media (max-width: 1240px) { .nav-phone span { display: none; } }
+@media (max-width: 600px) {
+  .mobile-bottom-bar a, .mobile-bottom-bar button { white-space: nowrap; min-width: 0; }
+}

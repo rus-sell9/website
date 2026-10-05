@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { T, useLang } from "./i18n";
+import Controls from "./components/Controls";
 import { Link } from "react-router-dom";
 import Icon from "./Icon";
 import Testimonials from "./components/Testimonials";
-import BeforeAfter from "./components/BeforeAfter";
 import Faq from "./components/Faq";
 import { business, images, cities } from "./config";
 import "./App.css";
@@ -10,6 +11,7 @@ import "./App.css";
 const services = [
   {
     number: "01",
+    slug: "residential",
     title: "Residential Cleaning",
     description:
       "A dependable clean for kitchens, bathrooms, bedrooms, living spaces, and the details that make your home feel fresh.",
@@ -17,6 +19,7 @@ const services = [
   },
   {
     number: "02",
+    slug: "deep-cleaning",
     title: "Deep Cleaning",
     description:
       "A more detailed clean for homes that need extra attention, including hard-to-reach areas and built-up dirt.",
@@ -24,6 +27,7 @@ const services = [
   },
   {
     number: "03",
+    slug: "move-in-move-out",
     title: "Move-In / Move-Out",
     description:
       "Get your space ready for the next chapter with a thorough clean before moving in or handing over the keys.",
@@ -31,6 +35,7 @@ const services = [
   },
   {
     number: "04",
+    slug: "commercial",
     title: "Commercial Cleaning",
     description:
       "Professional cleaning support for offices and other commercial spaces that need a clean, presentable environment.",
@@ -80,34 +85,20 @@ const steps = [
   },
 ];
 
-const gallery = [
-  {
-    src: "/kitchen_cleaned.webp",
-    caption: "Kitchen Deep Clean",
-  },
-  {
-    src: "/Living_Room_cleaned.webp",
-    caption: "Living Room Refresh",
-  },
-  {
-    src: "/restroom_luxury.webp",
-    caption: "Bathroom Detail Clean",
-  },
-  {
-    src: "/room_cleaned.webp",
-    caption: "Bedroom Tidy & Clean",
-  },
-  {
-    src: "/move_out_cleaned.webp",
-    caption: "Move-Out Cleaning",
-  },
-  {
-    src: "/outside_porche_cleaned.webp",
-    caption: "Outside Cleaning",
-  },
-];
-
 function App() {
+  const { t, lang } = useLang();
+
+  useEffect(() => {
+    document.title = t("SL Cleaning Services | Residential & Commercial Cleaning in LA & Orange County");
+    const meta = document.querySelector('meta[name="description"]');
+    if (meta) {
+      meta.setAttribute(
+        "content",
+        t("Professional residential and commercial cleaning services throughout all of LA County and Orange County. Reliable, detail-focused, and easy to book. Get a free quote today.")
+      );
+    }
+  }, [lang, t]);
+
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -182,7 +173,7 @@ function App() {
           <button
             className="brand"
             onClick={() => scrollTo("top")}
-            aria-label="SL Cleaning Services home"
+            aria-label={t("SL Cleaning Services home")}
           >
             <span className="brand-mark">
               <Icon name="sparkles" size={21} />
@@ -194,49 +185,47 @@ function App() {
             </span>
           </button>
 
-          <nav className="desktop-nav" aria-label="Main navigation">
+          <nav className="desktop-nav" aria-label={t("Main navigation")}>
             <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo("services"); }}>
-Services
+<T k="Services" />
 </a>
 
             <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo("about"); }}>
-About
+<T k="About" />
 </a>
 
             <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo("process"); }}>
-How It Works
-</a>
-
-            <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("work"); }}>
-Our Work
+<T k="How It Works" />
 </a>
 
             <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }}>
-Contact
+<T k="Contact" />
 </a>
 
             <Link to="/survey">
-              Leave a Review
+              <T k="Leave a Review" />
             </Link>
           </nav>
 
           <div className="nav-actions">
+            <Controls />
+
             <a className="nav-phone" href={`tel:${business.phoneHref}`}>
               <Icon name="phone" size={17} />
-              <span>Call Us</span>
+              <span><T k="Call Us" /></span>
             </a>
 
             <button
               className="button button-small"
               onClick={() => scrollTo("contact")}
             >
-              Get a Quote
+              <T k="Get a Quote" />
             </button>
 
             <button
               className="mobile-menu-button"
               onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-label={menuOpen ? t("Close menu") : t("Open menu")}
               aria-expanded={menuOpen}
             >
               <Icon name={menuOpen ? "close" : "menu"} size={22} />
@@ -247,33 +236,29 @@ Contact
         {menuOpen && (
           <nav
             className="mobile-menu"
-            aria-label="Mobile navigation"
+            aria-label={t("Mobile navigation")}
           >
             <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo("services"); }}>
-Services
+<T k="Services" />
 </a>
 
             <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo("about"); }}>
-About
+<T k="About" />
 </a>
 
             <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo("process"); }}>
-How It Works
-</a>
-
-            <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("work"); }}>
-Our Work
+<T k="How It Works" />
 </a>
 
             <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }}>
-Contact
+<T k="Contact" />
 </a>
 
             <Link
               to="/survey"
               onClick={() => setMenuOpen(false)}
             >
-              Leave a Review
+              <T k="Leave a Review" />
             </Link>
           </nav>
         )}
@@ -288,18 +273,17 @@ Contact
             <div className="hero-content">
               <div className="eyebrow">
                 <span className="eyebrow-dot" />
-                Professional Cleaning Services
+                <T k="Professional Cleaning Services" />
               </div>
 
               <h1>
-                A cleaner space.
+                <T k="A cleaner space." />
                 <br />
-                <span>More time for you.</span>
+                <span><T k="More time for you." /></span>
               </h1>
 
               <p className="hero-description">
-                Reliable residential and commercial cleaning services designed
-                to give your space the care and attention it deserves.
+                <T k="Reliable residential and commercial cleaning services designed to give your space the care and attention it deserves." />
               </p>
 
               <div className="hero-buttons">
@@ -307,7 +291,7 @@ Contact
                   className="button button-primary"
                   onClick={() => scrollTo("contact")}
                 >
-                  Get a Free Quote
+                  <T k="Get a Free Quote" />
                   <Icon name="arrow" size={19} />
                 </button>
 
@@ -316,7 +300,7 @@ Contact
                   href={`tel:${business.phoneHref}`}
                 >
                   <Icon name="phone" size={18} />
-                  Call Us
+                  <T k="Call Us" />
                 </a>
 
                 <a
@@ -324,24 +308,24 @@ Contact
                   href={`sms:${business.phoneHref}`}
                 >
                   <Icon name="message" size={18} />
-                  Text Us
+                  <T k="Text Us" />
                 </a>
               </div>
 
               <div className="trust-row">
                 <div className="trust-item">
                   <span className="trust-icon">✓</span>
-                  <span>Professional service</span>
+                  <span><T k="Professional service" /></span>
                 </div>
 
                 <div className="trust-item">
                   <span className="trust-icon">✓</span>
-                  <span>Flexible scheduling</span>
+                  <span><T k="Flexible scheduling" /></span>
                 </div>
 
                 <div className="trust-item">
                   <span className="trust-icon">✓</span>
-                  <span>Free estimates</span>
+                  <span><T k="Free estimates" /></span>
                 </div>
               </div>
             </div>
@@ -350,7 +334,7 @@ Contact
               <div className="hero-image-card">
                 <img
                   src={images.hero}
-                  alt="Living room and kitchen after a professional clean"
+                  alt={t("Living room and kitchen after a professional clean")}
                   fetchPriority="high"
                 />
 
@@ -360,8 +344,8 @@ Contact
                   </div>
 
                   <div>
-                    <strong>Fresh. Clean. Ready.</strong>
-                    <span>That's the SL standard.</span>
+                    <strong><T k="Fresh. Clean. Ready." /></strong>
+                    <span><T k="That's the SL standard." /></span>
                   </div>
                 </div>
               </div>
@@ -376,22 +360,22 @@ Contact
           <div className="container trust-bar-inner">
             <div>
               <span className="trust-bar-number">✓</span>
-              <span>Professional Care</span>
+              <span><T k="Professional Care" /></span>
             </div>
 
             <div>
               <span className="trust-bar-number">✓</span>
-              <span>Attention to Detail</span>
+              <span><T k="Attention to Detail" /></span>
             </div>
 
             <div>
               <span className="trust-bar-number">✓</span>
-              <span>Easy Communication</span>
+              <span><T k="Easy Communication" /></span>
             </div>
 
             <div>
               <span className="trust-bar-number">✓</span>
-              <span>Customer Focused</span>
+              <span><T k="Customer Focused" /></span>
             </div>
           </div>
         </section>
@@ -405,17 +389,16 @@ Contact
             <div className="section-heading">
               <div>
                 <span className="section-label">
-                  OUR SERVICES
+                  <T k="OUR SERVICES" />
                 </span>
 
                 <h2>
-                  Cleaning that fits your needs.
+                  <T k="Cleaning that fits your needs." />
                 </h2>
               </div>
 
               <p>
-                From routine home cleaning to detailed deep cleans, we provide
-                dependable service for spaces that deserve to feel their best.
+                <T k="From routine home cleaning to detailed deep cleans, we provide dependable service for spaces that deserve to feel their best." />
               </p>
             </div>
 
@@ -438,17 +421,26 @@ Contact
                     </span>
                   </div>
 
-                  <h3>{service.title}</h3>
+                  <h3><T k={service.title} /></h3>
 
-                  <p>{service.description}</p>
+                  <p><T k={service.description} /></p>
 
-                  <button
-                    className="text-link"
-                    onClick={() => scrollTo("contact")}
-                  >
-                    Get a quote
-                    <Icon name="arrow" size={17} />
-                  </button>
+                  <div className="service-actions">
+                    <Link
+                      className="text-link"
+                      to={`/${service.slug}`}
+                    >
+                      <T k="Look at our work" />
+                      <Icon name="arrow" size={17} />
+                    </Link>
+
+                    <button
+                      className="text-link text-link-quiet"
+                      onClick={() => scrollTo("contact")}
+                    >
+                      <T k="Get a quote" />
+                    </button>
+                  </div>
                 </article>
               ))}
             </div>
@@ -464,7 +456,7 @@ Contact
             <div className="about-image">
               <img
                 src={images.about}
-                alt="Kitchen after a professional deep clean"
+                alt={t("Kitchen after a professional deep clean")}
                 loading="lazy"
               />
 
@@ -476,28 +468,26 @@ Contact
 
             <div className="about-content">
               <span className="section-label">
-                WHY SL CLEANING
+                <T k="WHY SL CLEANING" />
               </span>
 
               <h2>
-                We don't just clean.
+                <T k="We don't just clean." />
                 <br />
                 <span>
-                  We care about the result.
+                  <T k="We care about the result." />
                 </span>
               </h2>
 
               <p className="lead">
-                A professional cleaning service should make your life easier.
-                That's why our approach is centered around dependable service,
-                clear communication, and attention to the details.
+                <T k="A professional cleaning service should make your life easier. That's why our approach is centered around dependable service, clear communication, and attention to the details." />
               </p>
 
               <div className="benefits">
                 {benefits.map((benefit) => (
                   <div
                     className="benefit"
-                    key={benefit.title}
+                    key={t(benefit.title)}
                   >
                     <div className="benefit-icon">
                       <Icon
@@ -507,8 +497,8 @@ Contact
                     </div>
 
                     <div>
-                      <h3>{benefit.title}</h3>
-                      <p>{benefit.description}</p>
+                      <h3><T k={benefit.title} /></h3>
+                      <p><T k={benefit.description} /></p>
                     </div>
                   </div>
                 ))}
@@ -525,15 +515,15 @@ Contact
           <div className="container">
             <div className="center-heading">
               <span className="section-label">
-                HOW IT WORKS
+                <T k="HOW IT WORKS" />
               </span>
 
               <h2>
-                Simple from start to finish.
+                <T k="Simple from start to finish." />
               </h2>
 
               <p>
-                Getting professional cleaning shouldn't be complicated.
+                <T k="Getting professional cleaning shouldn't be complicated." />
               </p>
             </div>
 
@@ -548,8 +538,8 @@ Contact
                   </div>
 
                   <div className="step-content">
-                    <h3>{step.title}</h3>
-                    <p>{step.description}</p>
+                    <h3><T k={step.title} /></h3>
+                    <p><T k={step.description} /></p>
                   </div>
 
                   {index !== steps.length - 1 && (
@@ -561,50 +551,6 @@ Contact
           </div>
         </section>
 
-        {/* GALLERY / OUR WORK */}
-        <section
-          className="section gallery-section"
-          id="work"
-        >
-          <div className="container">
-            <div className="center-heading">
-              <span className="section-label">
-                OUR WORK
-              </span>
-
-              <h2>
-                See the difference for yourself.
-              </h2>
-
-              <p>
-                A look at some of the homes and spaces we've recently
-                cleaned.
-              </p>
-            </div>
-
-            <div className="gallery-grid">
-              {gallery.map((item) => (
-                <div
-                  className="gallery-item"
-                  key={item.caption}
-                >
-                  <img
-                    src={item.src}
-                    alt={item.caption}
-                    loading="lazy"
-                    decoding="async"
-                  />
-
-                  <div className="gallery-caption">
-                    <span>{item.caption}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <BeforeAfter />
         <Testimonials />
 
         {/* SERVICE AREA */}
@@ -612,18 +558,15 @@ Contact
           <div className="container service-area-inner">
             <div>
               <span className="section-label light">
-                SERVICE AREA
+                <T k="SERVICE AREA" />
               </span>
 
               <h2>
-                Proudly serving your local community.
+                <T k="Proudly serving your local community." />
               </h2>
 
               <p>
-                We currently provide cleaning services throughout all of Los
-                Angeles County and all of Orange County. Outside these areas?
-                Reach out anyway — we're happy to see if we can make it work
-                for your location.
+                <T k="We currently provide cleaning services throughout all of Los Angeles County and all of Orange County. Outside these areas? Reach out anyway — we're happy to see if we can make it work for your location." />
               </p>
 
               <p className="area-cities">
@@ -636,10 +579,10 @@ Contact
             </div>
 
             <div className="area-list">
-              <span>All of LA County</span>
-              <span>All of Orange County</span>
+              <span><T k="All of LA County" /></span>
+              <span><T k="All of Orange County" /></span>
               <button onClick={() => scrollTo("contact")}>
-                Outside these areas? Contact us
+                <T k="Outside these areas? Contact us" />
               </button>
             </div>
           </div>
@@ -656,16 +599,15 @@ Contact
 
             <div className="contact-copy">
               <span className="section-label">
-                GET STARTED
+                <T k="GET STARTED" />
               </span>
 
               <h2>
-                Ready for a cleaner space?
+                <T k="Ready for a cleaner space?" />
               </h2>
 
               <p>
-                Tell us what you need and we'll get back to you with the next
-                steps.
+                <T k="Tell us what you need and we'll get back to you with the next steps." />
               </p>
 
               <div className="contact-details">
@@ -676,7 +618,7 @@ Contact
                   </span>
 
                   <span>
-                    <small>Call us</small>
+                    <small><T k="Call us" /></small>
                     <strong>
                       {business.phone}
                     </strong>
@@ -689,7 +631,7 @@ Contact
                   </span>
 
                   <span>
-                    <small>Text us</small>
+                    <small><T k="Text us" /></small>
                     <strong>
                       {business.phone}
                     </strong>
@@ -702,7 +644,7 @@ Contact
                   </span>
 
                   <span>
-                    <small>Email us</small>
+                    <small><T k="Email us" /></small>
                     <strong>
                       {business.email}
                     </strong>
@@ -719,29 +661,29 @@ Contact
             >
 
               <div className="form-header">
-                <span>FREE QUOTE</span>
+                <span><T k="FREE QUOTE" /></span>
 
                 <h3>
-                  Tell us about your cleaning needs.
+                  <T k="Tell us about your cleaning needs." />
                 </h3>
               </div>
 
               <div className="form-grid">
 
                 <label>
-                  <span>Your name</span>
+                  <span><T k="Your name" /></span>
 
                   <input
                     type="text"
                     name="name"
-                    placeholder="John Smith"
+                    placeholder={t("John Smith")}
                     autoComplete="name"
                     required
                   />
                 </label>
 
                 <label>
-                  <span>Phone</span>
+                  <span><T k="Phone" /></span>
 
                   <input
                     type="tel"
@@ -754,19 +696,19 @@ Contact
                 </label>
 
                 <label>
-                  <span>Email</span>
+                  <span><T k="Email" /></span>
 
                   <input
                     type="email"
                     name="email"
-                    placeholder="you@example.com"
+                    placeholder={t("you@example.com")}
                     autoComplete="email"
                     required
                   />
                 </label>
 
                 <label>
-                  <span>ZIP code</span>
+                  <span><T k="ZIP code" /></span>
 
                   <input
                     type="text"
@@ -781,7 +723,7 @@ Contact
                 </label>
 
                 <label>
-                  <span>Service</span>
+                  <span><T k="Service" /></span>
 
                   <select
                     name="service"
@@ -792,33 +734,33 @@ Contact
                       value=""
                       disabled
                     >
-                      Select a service
+                      {t("Select a service")}
                     </option>
 
                     <option value="Residential Cleaning">
-                      Residential Cleaning
+                      {t("Residential Cleaning")}
                     </option>
 
                     <option value="Deep Cleaning">
-                      Deep Cleaning
+                      {t("Deep Cleaning")}
                     </option>
 
                     <option value="Move-In / Move-Out">
-                      Move-In / Move-Out
+                      {t("Move-In / Move-Out")}
                     </option>
 
                     <option value="Commercial Cleaning">
-                      Commercial Cleaning
+                      {t("Commercial Cleaning")}
                     </option>
 
                     <option value="Other">
-                      Other
+                      {t("Other")}
                     </option>
                   </select>
                 </label>
 
                 <label>
-                  <span>How often?</span>
+                  <span><T k="How often?" /></span>
 
                   <select
                     name="frequency"
@@ -826,44 +768,44 @@ Contact
                     required
                   >
                     <option value="" disabled>
-                      Select frequency
+                      {t("Select frequency")}
                     </option>
-                    <option value="One time">One time</option>
-                    <option value="Weekly">Weekly</option>
-                    <option value="Every 2 weeks">Every 2 weeks</option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Not sure yet">Not sure yet</option>
+                    <option value="One time">{t("One time")}</option>
+                    <option value="Weekly">{t("Weekly")}</option>
+                    <option value="Every 2 weeks">{t("Every 2 weeks")}</option>
+                    <option value="Monthly">{t("Monthly")}</option>
+                    <option value="Not sure yet">{t("Not sure yet")}</option>
                   </select>
                 </label>
 
                 <label>
-                  <span>Bedrooms</span>
+                  <span><T k="Bedrooms" /></span>
 
                   <select name="bedrooms" defaultValue="">
-                    <option value="">Not sure / not applicable</option>
-                    <option value="Studio">Studio</option>
+                    <option value="">{t("Not sure / not applicable")}</option>
+                    <option value="Studio">{t("Studio")}</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                    <option value="5+">5 or more</option>
+                    <option value="5+">{t("5 or more")}</option>
                   </select>
                 </label>
 
                 <label>
-                  <span>Bathrooms</span>
+                  <span><T k="Bathrooms" /></span>
 
                   <select name="bathrooms" defaultValue="">
-                    <option value="">Not sure / not applicable</option>
+                    <option value="">{t("Not sure / not applicable")}</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                    <option value="4+">4 or more</option>
+                    <option value="4+">{t("4 or more")}</option>
                   </select>
                 </label>
 
                 <label>
-                  <span>Preferred date</span>
+                  <span><T k="Preferred date" /></span>
 
                   <input
                     type="date"
@@ -873,22 +815,22 @@ Contact
                 </label>
 
                 <label className="full">
-                  <span>Best time of day</span>
+                  <span><T k="Best time of day" /></span>
 
                   <select name="preferred_time" defaultValue="Flexible">
-                    <option value="Flexible">Flexible</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Afternoon">Afternoon</option>
+                    <option value="Flexible">{t("Flexible")}</option>
+                    <option value="Morning">{t("Morning")}</option>
+                    <option value="Afternoon">{t("Afternoon")}</option>
                   </select>
                 </label>
 
                 <label className="full">
-                  <span>Tell us more</span>
+                  <span><T k="Tell us more" /></span>
 
                   <textarea
                     name="message"
                     rows="4"
-                    placeholder="Tell us about your space and what you need cleaned..."
+                    placeholder={t("Tell us about your space and what you need cleaned...")}
                   />
                 </label>
 
@@ -907,9 +849,7 @@ Contact
                 type="submit"
                 disabled={loading}
               >
-                {loading
-                  ? "Sending..."
-                  : "Request My Free Quote"}
+                <T k={loading ? "Sending..." : "Request My Free Quote"} />
 
                 {!loading && (
                   <Icon
@@ -920,7 +860,7 @@ Contact
               </button>
 
               <p className="form-note">
-                No obligation. We'll contact you to discuss your cleaning needs.
+                <T k="No obligation. We'll contact you to discuss your cleaning needs." />
               </p>
 
               {status && (
@@ -934,7 +874,7 @@ Contact
                   }`}
                   role="status"
                 >
-                  {status}
+                  <T k={status} />
                 </div>
               )}
 
@@ -963,42 +903,37 @@ Contact
               </div>
 
               <p>
-                Professional cleaning services focused on quality, reliability,
-                and making your space feel its best.
+                <T k="Professional cleaning services focused on quality, reliability, and making your space feel its best." />
               </p>
 
             </div>
 
             <div className="footer-column">
-              <h4>Navigation</h4>
+              <h4><T k="Navigation" /></h4>
 
               <a href="#services" onClick={(e) => { e.preventDefault(); scrollTo("services"); }}>
-Services
+<T k="Services" />
 </a>
 
               <a href="#about" onClick={(e) => { e.preventDefault(); scrollTo("about"); }}>
-About
+<T k="About" />
 </a>
 
               <a href="#process" onClick={(e) => { e.preventDefault(); scrollTo("process"); }}>
-How It Works
-</a>
-
-              <a href="#work" onClick={(e) => { e.preventDefault(); scrollTo("work"); }}>
-Our Work
+<T k="How It Works" />
 </a>
 
               <a href="#contact" onClick={(e) => { e.preventDefault(); scrollTo("contact"); }}>
-Contact
+<T k="Contact" />
 </a>
 
               <Link to="/survey">
-                Leave a Review
+                <T k="Leave a Review" />
               </Link>
             </div>
 
             <div className="footer-column">
-              <h4>Contact</h4>
+              <h4><T k="Contact" /></h4>
 
               <a href={`tel:${business.phoneHref}`}>
                 {business.phone}
@@ -1008,19 +943,19 @@ Contact
                 {business.email}
               </a>
 
-              <span>Service Area</span>
+              <span><T k="Serving LA & Orange County" /></span>
             </div>
 
           </div>
 
           <div className="footer-bottom">
             <span>
-              © {new Date().getFullYear()} SL Cleaning Services.
-              All rights reserved.
+              © {new Date().getFullYear()} SL Cleaning Services.{" "}
+              <T k="All rights reserved." />
             </span>
 
             <span>
-              Professional cleaning. Personal care.
+              <T k="Professional cleaning. Personal care." />
             </span>
           </div>
 
@@ -1032,18 +967,18 @@ Contact
 
         <a href={`tel:${business.phoneHref}`}>
           <Icon name="phone" size={18} />
-          Call
+          <T k="Call" />
         </a>
 
         <a href={`sms:${business.phoneHref}`}>
           <Icon name="message" size={18} />
-          Text
+          <T k="Text" />
         </a>
 
         <button
           onClick={() => scrollTo("contact")}
         >
-          Get Free Quote
+          <T k="Get Free Quote" />
           <Icon name="arrow" size={17} />
         </button>
 

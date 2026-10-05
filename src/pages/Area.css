@@ -12,3 +12,4 @@
 .area-services span { color: var(--muted); }
 .area-others { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 14px; }
 .area-others a { color: var(--blue); }
+.area-header-actions { display: flex; align-items: center; gap: 12px; }

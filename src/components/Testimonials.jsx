@@ -1,4 +1,5 @@
 import { business, testimonials } from "../config";
+import { T } from "../i18n";
 
 export default function Testimonials() {
   if (!testimonials.length && !business.googleReviewUrl) return null;
@@ -7,18 +8,18 @@ export default function Testimonials() {
     <section className="section reviews-section" id="reviews">
       <div className="container">
         <div className="center-heading">
-          <span className="section-label">REVIEWS</span>
-          <h2>What our customers say.</h2>
+          <span className="section-label"><T k="REVIEWS" /></span>
+          <h2><T k="What our customers say." /></h2>
         </div>
 
         {testimonials.length > 0 && (
           <div className="reviews-grid">
-            {testimonials.map((t) => (
-              <figure className="review-card" key={t.name + t.text}>
-                <blockquote>{t.text}</blockquote>
+            {testimonials.map((r) => (
+              <figure className="review-card" key={r.name + r.text}>
+                <blockquote>{r.text}</blockquote>
                 <figcaption>
-                  <strong>{t.name}</strong>
-                  {t.area && <span>{t.area}</span>}
+                  <strong>{r.name}</strong>
+                  {r.area && <span>{r.area}</span>}
                 </figcaption>
               </figure>
             ))}
@@ -27,13 +28,8 @@ export default function Testimonials() {
 
         {business.googleReviewUrl && (
           <p className="reviews-cta">
-            <a
-              className="button button-outline"
-              href={business.googleReviewUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Review us on Google
+            <a className="button button-outline" href={business.googleReviewUrl} target="_blank" rel="noreferrer">
+              <T k="Review us on Google" />
             </a>
           </p>
         )}

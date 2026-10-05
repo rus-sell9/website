@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "../Icon";
+import Controls from "../components/Controls";
+import { T, useLang } from "../i18n";
 import "../App.css";
 import "./Survey.css";
 
 function Survey() {
+  const { t } = useLang();
   const [stage, setStage] = useState("form");
   const [errorMessage, setErrorMessage] = useState("");
   const [rating, setRating] = useState(0);
@@ -77,12 +80,13 @@ function Survey() {
 
   return (
     <div className="survey-page">
+      <Controls floating />
       <header className="survey-header">
         <div className="container survey-header-inner">
           <Link
             to="/"
             className="brand"
-            aria-label="SL Cleaning Services home"
+            aria-label={t("SL Cleaning Services home")}
           >
             <span className="brand-mark">
               <Icon name="sparkles" size={21} />
@@ -102,17 +106,15 @@ function Survey() {
             <>
               <div className="center-heading">
                 <span className="section-label">
-                  RATE YOUR SERVICE
+                  <T k="RATE YOUR SERVICE" />
                 </span>
 
                 <h2>
-                  How did we do?
+                  <T k="How did we do?" />
                 </h2>
 
                 <p>
-                  We'd love your feedback on the work we completed. It
-                  helps us keep our standards high and helps other clients
-                  know what to expect.
+                  <T k="We'd love your feedback on the work we completed. It helps us keep our standards high and helps other clients know what to expect." />
                 </p>
               </div>
 
@@ -121,34 +123,32 @@ function Survey() {
                 onSubmit={handleSurveySubmit}
               >
                 <div className="form-header">
-                  <span>SERVICE SURVEY</span>
+                  <span><T k="SERVICE SURVEY" /></span>
 
                   <h3>
-                    Tell us about the work we did for you.
+                    <T k="Tell us about the work we did for you." />
                   </h3>
                 </div>
 
                 <p className="disclaimer-box">
-                  <strong>Disclaimer:</strong> the person filling out this
-                  form must be the person who supervised how the work was
-                  done (owner, manager, or on-site supervisor).
+                  <strong><T k="Disclaimer:" /></strong> <T k="the person filling out this form must be the person who supervised how the work was done (owner, manager, or on-site supervisor)." />
                 </p>
 
                 <div className="form-grid">
                   <label>
-                    <span>Your name</span>
+                    <span><T k="Your name" /></span>
 
                     <input
                       type="text"
                       name="name"
-                      placeholder="John Smith"
+                      placeholder={t("John Smith")}
                       autoComplete="name"
                       required
                     />
                   </label>
 
                   <label>
-                    <span>Your role on site</span>
+                    <span><T k="Your role on site" /></span>
 
                     <select
                       name="role"
@@ -159,41 +159,41 @@ function Survey() {
                         value=""
                         disabled
                       >
-                        Select your role
+                        {t("Select your role")}
                       </option>
 
                       <option value="Owner">
-                        Owner
+                        {t("Owner")}
                       </option>
 
                       <option value="Manager">
-                        Manager
+                        {t("Manager")}
                       </option>
 
                       <option value="Supervisor">
-                        Supervisor
+                        {t("Supervisor")}
                       </option>
 
                       <option value="Other">
-                        Other
+                        {t("Other")}
                       </option>
                     </select>
                   </label>
 
                   <label>
-                    <span>Email</span>
+                    <span><T k="Email" /></span>
 
                     <input
                       type="email"
                       name="email"
-                      placeholder="you@example.com"
+                      placeholder={t("you@example.com")}
                       autoComplete="email"
                       required
                     />
                   </label>
 
                   <label>
-                    <span>Phone</span>
+                    <span><T k="Phone" /></span>
 
                     <input
                       type="tel"
@@ -205,19 +205,19 @@ function Survey() {
                   </label>
 
                   <label className="full">
-                    <span>Address where the work was done</span>
+                    <span><T k="Address where the work was done" /></span>
 
                     <input
                       type="text"
                       name="address"
-                      placeholder="Street, City, ZIP"
+                      placeholder={t("Street, City, ZIP")}
                       autoComplete="street-address"
                       required
                     />
                   </label>
 
                   <label>
-                    <span>Date of service</span>
+                    <span><T k="Date of service" /></span>
 
                     <input
                       type="date"
@@ -226,7 +226,7 @@ function Survey() {
                   </label>
 
                   <label>
-                    <span>Would you recommend us?</span>
+                    <span><T k="Would you recommend us?" /></span>
 
                     <select
                       name="would_recommend"
@@ -236,26 +236,26 @@ function Survey() {
                         value=""
                         disabled
                       >
-                        Select an answer
+                        {t("Select an answer")}
                       </option>
 
                       <option value="Yes">
-                        Yes
+                        {t("Yes")}
                       </option>
 
                       <option value="No">
-                        No
+                        {t("No")}
                       </option>
                     </select>
                   </label>
 
                   <div className="full star-field">
-                    <span>Overall rating</span>
+                    <span><T k="Overall rating" /></span>
 
                     <div
                       className="star-rating"
                       role="radiogroup"
-                      aria-label="Overall rating"
+                      aria-label={t("Overall rating")}
                     >
                       {[1, 2, 3, 4, 5].map((value) => (
                         <button
@@ -266,9 +266,7 @@ function Survey() {
                               ? "star filled"
                               : "star"
                           }
-                          aria-label={`${value} star${
-                            value > 1 ? "s" : ""
-                          }`}
+                          aria-label={`${value} ${value > 1 ? t("stars") : t("star")}`}
                           aria-pressed={value === rating}
                           onMouseEnter={() => setHoverRating(value)}
                           onMouseLeave={() => setHoverRating(0)}
@@ -287,12 +285,12 @@ function Survey() {
                   </div>
 
                   <label className="full">
-                    <span>Additional comments</span>
+                    <span><T k="Additional comments" /></span>
 
                     <textarea
                       name="comments"
                       rows="4"
-                      placeholder="Anything you'd like to share about the service..."
+                      placeholder={t("Anything you'd like to share about the service...")}
                     />
                   </label>
                 </div>
@@ -301,7 +299,7 @@ function Survey() {
                   className="button button-primary form-button"
                   type="submit"
                 >
-                  Submit Survey
+                  <T k="Submit Survey" />
                   <Icon
                     name="arrow"
                     size={18}
@@ -309,8 +307,7 @@ function Survey() {
                 </button>
 
                 <p className="form-note">
-                  Your feedback goes directly to our team and is not
-                  published without your permission.
+                  <T k="Your feedback goes directly to our team and is not published without your permission." />
                 </p>
 
                 {errorMessage && (
@@ -318,7 +315,7 @@ function Survey() {
                     className="form-status error"
                     role="status"
                   >
-                    {errorMessage}
+                    <T k={errorMessage} />
                   </div>
                 )}
               </form>
@@ -332,8 +329,8 @@ function Survey() {
                 aria-hidden="true"
               />
 
-              <h2>Submitting your survey...</h2>
-              <p>Please hold on a moment.</p>
+              <h2><T k="Submitting your survey..." /></h2>
+              <p><T k="Please hold on a moment." /></p>
             </div>
           )}
 
@@ -346,11 +343,10 @@ function Survey() {
                 />
               </div>
 
-              <h2>Thanks for your survey!</h2>
+              <h2><T k="Thanks for your survey!" /></h2>
 
               <p>
-                We really appreciate you taking the time to share your
-                feedback with us.
+                <T k="We really appreciate you taking the time to share your feedback with us." />
               </p>
 
               <div className="survey-success-actions">
@@ -362,7 +358,7 @@ function Survey() {
                     name="home"
                     size={18}
                   />
-                  Go back home
+                  <T k="Go back home" />
                 </Link>
 
                 {!leaveClicked && (
@@ -375,14 +371,14 @@ function Survey() {
                       name="close"
                       size={18}
                     />
-                    Leave the website
+                    <T k="Leave the website" />
                   </button>
                 )}
               </div>
 
               {leaveClicked && (
                 <p className="survey-leave-confirm">
-                  You're all set — you can close this tab now.
+                  <T k="You're all set — you can close this tab now." />
                 </p>
               )}
             </div>
