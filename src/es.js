@@ -204,4 +204,13 @@ export default {
   "SL Cleaning Services | Residential & Commercial Cleaning in LA & Orange County": "SL Cleaning Services | Limpieza residencial y comercial en LA y el condado de Orange",
   "Professional residential and commercial cleaning services throughout all of LA County and Orange County. Reliable, detail-focused, and easy to book. Get a free quote today.": "Servicios profesionales de limpieza residencial y comercial en todo el condado de Los Ángeles y el condado de Orange. Confiables, detallistas y fáciles de reservar. Pide tu cotización gratis hoy.",
   "Request My Free Quote": "Solicitar mi cotización gratis"
+  "Checking session…": "Comprobando sesión…",
+  "Admin login": "Inicio de sesión admin",
+  "Name + access code + authenticator code": "Nombre + código de acceso + código del autenticador",
+  "Name": "Nombre",
+  "Access code": "Código de acceso",
+  "Authenticator code (6 digits)": "Código del autenticador (6 dígitos)",
+  "Signing in…": "Entrando…",
+  "Sign in": "Entrar",
+  "That link doesn’t exist. Head back home or get a free quote.": "Ese enlace no existe. Vuelve al inicio o pide una cotización gratis.",
 };
