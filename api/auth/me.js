@@ -6,5 +6,11 @@ export default async function handler(req, res) {
   }
   const auth = await requireAdmin(req);
   if (!auth.ok) return sendJson(res, { authenticated: false }, 200);
-  return sendJson(res, { authenticated: true, name: auth.session.name });
+  const exp = auth.session.exp;
+  const expiresAt = typeof exp === "number" ? exp * 1000 : null;
+  return sendJson(res, {
+    authenticated: true,
+    name: auth.session.name,
+    expiresAt,
+  });
 }
