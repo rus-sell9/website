@@ -18,7 +18,8 @@ async function api(path, opts = {}) {
 }
 
 export default function Admin() {
-  const [auth, setAuth] = useState({ loading: true, authenticated: false, name: "" });
+  const [auth, setAuth] = useState({ loading: true, authenticated: false, name: "", expiresAt: null });
+  const [remainingMs, setRemainingMs] = useState(null);
   const [login, setLogin] = useState({ name: "", accessCode: "", totp: "" });
   const [error, setError] = useState("");
   const [okMsg, setOkMsg] = useState("");
@@ -37,9 +38,14 @@ export default function Admin() {
   const refreshAuth = useCallback(async () => {
     try {
       const data = await api("/api/auth/me");
-      setAuth({ loading: false, authenticated: !!data.authenticated, name: data.name || "" });
+      setAuth({
+        loading: false,
+        authenticated: !!data.authenticated,
+        name: data.name || "",
+        expiresAt: data.expiresAt || null,
+      });
     } catch {
-      setAuth({ loading: false, authenticated: false, name: "" });
+      setAuth({ loading: false, authenticated: false, name: "", expiresAt: null });
     }
   }, []);
 
@@ -68,6 +74,24 @@ export default function Admin() {
     if (auth.authenticated) loadPhotos(service);
   }, [auth.authenticated, service, loadPhotos]);
 
+  useEffect(() => {
+    if (!auth.authenticated || !auth.expiresAt) {
+      setRemainingMs(null);
+      return;
+    }
+    const tick = () => {
+      const left = auth.expiresAt - Date.now();
+      setRemainingMs(left);
+      if (left <= 0) {
+        setAuth({ loading: false, authenticated: false, name: "", expiresAt: null });
+        setError(t("Session expired. Please sign in again."));
+      }
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, [auth.authenticated, auth.expiresAt, t]);
+
   async function handleLogin(e) {
     e.preventDefault();
     setError("");
@@ -77,7 +101,7 @@ export default function Admin() {
         method: "POST",
         body: JSON.stringify(login),
       });
-      setAuth({ loading: false, authenticated: true, name: data.name });
+      setAuth({ loading: false, authenticated: true, name: data.name, expiresAt: data.expiresAt || null });
       setLogin({ name: login.name, accessCode: "", totp: "" });
     } catch (err) {
       setError(err.message || "Login failed");
@@ -92,7 +116,8 @@ export default function Admin() {
     } catch {
       /* ignore */
     }
-    setAuth({ loading: false, authenticated: false, name: "" });
+    setAuth({ loading: false, authenticated: false, name: "", expiresAt: null });
+    setRemainingMs(null);
   }
 
   async function handleFiles(fileList) {
@@ -293,9 +318,20 @@ export default function Admin() {
             <h1>Photo admin</h1>
             <div className="muted">Signed in as {auth.name}</div>
           </div>
-          <button className="admin-btn secondary" type="button" onClick={handleLogout}>
-            Sign out
-          </button>
+          <div className="admin-header-right">
+            {remainingMs != null && (
+              <div
+                className={`admin-session-timer${remainingMs < 5 * 60 * 1000 ? " warn" : ""}${remainingMs < 60 * 1000 ? " critical" : ""}`}
+                title={t("Session time remaining")}
+              >
+                <span className="admin-session-label">{t("Session")}</span>
+                <span className="admin-session-value">{formatRemaining(remainingMs)}</span>
+              </div>
+            )}
+            <button className="admin-btn secondary" type="button" onClick={handleLogout}>
+              Sign out
+            </button>
+          </div>
         </header>
 
         {error && <div className="admin-error">{error}</div>}
@@ -437,6 +473,18 @@ export default function Admin() {
       </div>
     </div>
   );
+}
+
+function formatRemaining(ms) {
+  if (ms == null || ms <= 0) return "0:00";
+  const total = Math.floor(ms / 1000);
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  if (h > 0) {
+    return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  }
+  return `${m}:${String(s).padStart(2, "0")}`;
 }
 
 function CaptionEditor({ caption, captionEs, onSave, disabled }) {
