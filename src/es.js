@@ -213,4 +213,7 @@ export default {
   "Signing in…": "Entrando…",
   "Sign in": "Entrar",
   "That link doesn’t exist. Head back home or get a free quote.": "Ese enlace no existe. Vuelve al inicio o pide una cotización gratis.",
+  "Session": "Sesión",
+  "Session time remaining": "Tiempo de sesión restante",
+  "Session expired. Please sign in again.": "La sesión expiró. Vuelve a iniciar sesión.",
 };
