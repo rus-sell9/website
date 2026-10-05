@@ -5,11 +5,8 @@
   ],
   "headers": [
     {
-      "source": "/admin",
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
-    },
-    {
-      "source": "/admin/(.*)",
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "admin.slcleaningservices.online" }],
       "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
     }
   ]
