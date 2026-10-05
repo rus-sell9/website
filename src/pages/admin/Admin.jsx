@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { servicePages } from "../../config";
+import { useLang } from "../../i18n";
 import { fileToWebpDataUrl } from "./imageUtil";
 import "./Admin.css";
 
@@ -31,7 +32,8 @@ export default function Admin() {
   const [pairWithId, setPairWithId] = useState("");
   const [progress, setProgress] = useState("");
   const [dragId, setDragId] = useState(null);
-
+  const { lang, t, toggleLang } = useLang();
+  
   const refreshAuth = useCallback(async () => {
     try {
       const data = await api("/api/auth/me");
@@ -225,16 +227,34 @@ export default function Admin() {
     );
   }
 
+  if (auth.loading) {
+    return (
+      <div className="admin-page">
+        <div className="admin-wrap">
+          <p className="muted">{t("Checking session…")}</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!auth.authenticated) {
     return (
       <div className="admin-page">
         <div className="admin-login">
-          <h1>Admin login</h1>
-          <p>Name + access code + authenticator code</p>
+          <div className="admin-lang" role="group" aria-label={t("Switch language")}>
+            <button type="button" className={lang === "en" ? "on" : ""} onClick={() => lang !== "en" && toggleLang()}>
+              EN
+            </button>
+            <button type="button" className={lang === "es" ? "on" : ""} onClick={() => lang !== "es" && toggleLang()}>
+              ES
+            </button>
+          </div>
+          <h1>{t("Admin login")}</h1>
+          <p>{t("Name + access code + authenticator code")}</p>
           {error && <div className="admin-error">{error}</div>}
           <form onSubmit={handleLogin}>
             <div className="admin-field">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">{t("Name")}</label>
               <input
                 id="name"
                 autoComplete="username"
@@ -244,7 +264,7 @@ export default function Admin() {
               />
             </div>
             <div className="admin-field">
-              <label htmlFor="code">Access code</label>
+              <label htmlFor="code">{t("Access code")}</label>
               <input
                 id="code"
                 type="password"
@@ -255,7 +275,7 @@ export default function Admin() {
               />
             </div>
             <div className="admin-field">
-              <label htmlFor="totp">Authenticator code (6 digits)</label>
+              <label htmlFor="totp">{t("Authenticator code (6 digits)")}</label>
               <input
                 id="totp"
                 inputMode="numeric"
@@ -268,167 +288,13 @@ export default function Admin() {
               />
             </div>
             <button className="admin-btn" type="submit" disabled={busy} style={{ width: "100%" }}>
-              {busy ? "Signing in…" : "Sign in"}
+              {busy ? t("Signing in…") : t("Sign in")}
             </button>
           </form>
         </div>
       </div>
     );
   }
-
-  return (
-    <div className="admin-page">
-      <div className="admin-wrap">
-        <header className="admin-header">
-          <div>
-            <h1>Photo admin</h1>
-            <div className="muted">Signed in as {auth.name}</div>
-          </div>
-          <button className="admin-btn secondary" type="button" onClick={handleLogout}>
-            Sign out
-          </button>
-        </header>
-
-        {error && <div className="admin-error">{error}</div>}
-        {okMsg && <div className="admin-ok">{okMsg}</div>}
-
-        <div className="admin-tabs">
-          {SERVICES.map((s) => (
-            <button
-              key={s.slug}
-              type="button"
-              className={`admin-tab${service === s.slug ? " active" : ""}`}
-              onClick={() => setService(s.slug)}
-            >
-              {s.title}
-            </button>
-          ))}
-        </div>
-
-        <section className="admin-upload-box">
-          <h2>Upload photos</h2>
-          <div className="admin-row">
-            <div className="admin-field">
-              <label>Before or After?</label>
-              <select value={uploadRole} onChange={(e) => setUploadRole(e.target.value)}>
-                <option value="after">After</option>
-                <option value="before">Before</option>
-              </select>
-            </div>
-            <div className="admin-field">
-              <label>Pair with existing (optional)</label>
-              <select value={pairWithId} onChange={(e) => setPairWithId(e.target.value)}>
-                <option value="">— New entry —</option>
-                {items.map((it) => (
-                  <option key={it.id} value={it.id}>
-                    {(it.caption || it.id).slice(0, 40)}
-                    {!it.before ? " (needs before)" : ""}
-                    {!it.after ? " (needs after)" : ""}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="admin-field">
-              <label>Caption (English)</label>
-              <input value={caption} onChange={(e) => setCaption(e.target.value)} placeholder="Optional" />
-            </div>
-            <div className="admin-field">
-              <label>Caption (Spanish)</label>
-              <input value={captionEs} onChange={(e) => setCaptionEs(e.target.value)} placeholder="Optional" />
-            </div>
-          </div>
-          <div className="admin-field" style={{ marginTop: "0.9rem" }}>
-            <label>Photos (resized to WebP in browser)</label>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              disabled={busy}
-              onChange={(e) => {
-                handleFiles(e.target.files);
-                e.target.value = "";
-              }}
-            />
-          </div>
-          {progress && <div className="admin-progress">{progress}</div>}
-        </section>
-
-        <p className="admin-drag-hint">Drag cards to reorder. Changes save automatically.</p>
-
-        <div className="admin-grid">
-          {items.map((it) => (
-            <article
-              key={it.id}
-              className={`admin-card${dragId === it.id ? " dragging" : ""}`}
-              draggable
-              onDragStart={() => onDragStart(it.id)}
-              onDragOver={(e) => onDragOver(e, it.id)}
-              onDragEnd={onDragEnd}
-            >
-              <div className="admin-card-imgs">
-                {it.before ? (
-                  <img src={it.before} alt="Before" />
-                ) : (
-                  <div className="empty-slot">No before</div>
-                )}
-                {it.after ? (
-                  <img src={it.after} alt="After" className={!it.before ? "solo" : undefined} />
-                ) : (
-                  <div className="empty-slot">No after</div>
-                )}
-              </div>
-              <div className="admin-card-body">
-                <CaptionEditor
-                  caption={it.caption || ""}
-                  captionEs={it.captionEs || ""}
-                  onSave={(c, ce) => handleSaveCaption(it.id, c, ce)}
-                  disabled={busy}
-                />
-                <div className="admin-field">
-                  <label>Pair before from…</label>
-                  <select
-                    defaultValue=""
-                    disabled={busy}
-                    onChange={(e) => {
-                      if (e.target.value) handlePair(it.id, e.target.value);
-                      e.target.value = "";
-                    }}
-                  >
-                    <option value="">— Select source —</option>
-                    {items
-                      .filter((o) => o.id !== it.id && (o.before || o.after))
-                      .map((o) => (
-                        <option key={o.id} value={o.id}>
-                          {(o.caption || o.id).slice(0, 40)}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-                <div className="admin-card-actions">
-                  {it.before && (
-                    <button className="admin-btn secondary small" type="button" onClick={() => handleDelete(it.id, "before")} disabled={busy}>
-                      Remove before
-                    </button>
-                  )}
-                  {it.after && (
-                    <button className="admin-btn secondary small" type="button" onClick={() => handleDelete(it.id, "after")} disabled={busy}>
-                      Remove after
-                    </button>
-                  )}
-                  <button className="admin-btn danger small" type="button" onClick={() => handleDelete(it.id, "all")} disabled={busy}>
-                    Delete
-                  </button>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {!items.length && <p className="muted">No photos for this service yet. Upload some above.</p>}
-      </div>
-    </div>
-  );
-}
 
 function CaptionEditor({ caption, captionEs, onSave, disabled }) {
   const [en, setEn] = useState(caption);
