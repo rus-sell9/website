@@ -1,8 +1,8 @@
 /**
- * Resize + compress an image file to WebP using the browser canvas.
- * Returns a data URL (image/webp;base64,...).
+ * Resize + compress an image file to WebP (or JPEG fallback).
+ * Keeps payload under Vercel serverless ~4.5MB limit (base64 is larger than binary).
  */
-export function fileToWebpDataUrl(file, { maxEdge = 1600, quality = 0.82 } = {}) {
+export function fileToWebpDataUrl(file, { maxEdge = 1400, quality = 0.72 } = {}) {
   return new Promise((resolve, reject) => {
     const url = URL.createObjectURL(file);
     const img = new Image();
@@ -10,24 +10,43 @@ export function fileToWebpDataUrl(file, { maxEdge = 1600, quality = 0.82 } = {})
       URL.revokeObjectURL(url);
       let { width, height } = img;
       const scale = Math.min(1, maxEdge / Math.max(width, height));
-      width = Math.round(width * scale);
-      height = Math.round(height * scale);
+      width = Math.max(1, Math.round(width * scale));
+      height = Math.max(1, Math.round(height * scale));
       const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
       const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0, width, height);
-      try {
-        const dataUrl = canvas.toDataURL("image/webp", quality);
-        if (!dataUrl.startsWith("data:image/webp")) {
-          // Fallback if browser lacks webp encode
-          resolve(canvas.toDataURL("image/jpeg", quality));
-        } else {
-          resolve(dataUrl);
+
+      const tryEncode = (q) => {
+        let dataUrl;
+        try {
+          dataUrl = canvas.toDataURL("image/webp", q);
+          if (!dataUrl.startsWith("data:image/webp")) {
+            dataUrl = canvas.toDataURL("image/jpeg", q);
+          }
+        } catch {
+          dataUrl = canvas.toDataURL("image/jpeg", q);
         }
-      } catch (e) {
-        reject(e);
+        return dataUrl;
+      };
+
+      let dataUrl = tryEncode(quality);
+      let q = quality;
+      let guard = 0;
+      while (dataUrl.length > 3.2 * 1024 * 1024 && guard < 6) {
+        q = Math.max(0.4, q - 0.1);
+        if (guard >= 3) {
+          width = Math.round(width * 0.85);
+          height = Math.round(height * 0.85);
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+        }
+        dataUrl = tryEncode(q);
+        guard++;
       }
+      resolve(dataUrl);
     };
     img.onerror = () => {
       URL.revokeObjectURL(url);
