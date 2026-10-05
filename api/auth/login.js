@@ -51,5 +51,10 @@ export default async function handler(req, res) {
   const token = await createSessionToken(name);
   await notifyTelegram({ name, success: true, ip: rate.ip, detail: "Logged in" });
 
-  return sendJson(res, { ok: true, name }, 200, { "Set-Cookie": sessionCookieHeader(token) });
+  let expiresAt = Date.now() + 30 * 60 * 1000;
+  try {
+    const payload = JSON.parse(Buffer.from(token.split(".")[1], "base64url").toString());
+    if (payload.exp) expiresAt = payload.exp * 1000;
+  } catch { /* keep default */ }
+  return sendJson(res, { ok: true, name, expiresAt }, 200, { "Set-Cookie": sessionCookieHeader(token) });
 }
