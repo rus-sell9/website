@@ -15,7 +15,7 @@ export default function NotFound() {
   }, [lang]);
 
   return (
-    <div className="site area-page">
+    <div className="site area-page not-found-page">
       <header className="area-header">
         <div className="container area-header-inner">
           <Link to="/" className="area-brand">
@@ -30,15 +30,15 @@ export default function NotFound() {
         </div>
       </header>
 
-      <main className="container service-main" style={{ textAlign: "center", paddingTop: "4rem", paddingBottom: "5rem" }}>
+      <main className="container service-main not-found-main">
         <p className="section-label">404</p>
         <h1>
           <T k="Page not found" />
         </h1>
-        <p className="area-lead" style={{ maxWidth: "32rem", margin: "0 auto 1.5rem" }}>
+        <p className="area-lead">
           <T k="That link doesn’t exist. Head back home or get a free quote." />
         </p>
-        <div className="area-actions" style={{ justifyContent: "center" }}>
+        <div className="area-actions">
           <Link className="button button-primary" to="/">
             <T k="Back to home" />
           </Link>
