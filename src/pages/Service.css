@@ -61,3 +61,19 @@ html[data-theme="dark"] .area-page {
     grid-template-columns: 1fr;
   }
 }
+
+/* Keep service gallery tiles uniform */
+.ba-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+.ba-grid .ba {
+  margin: 0;
+  min-width: 0;
+}
+.ba-grid .ba-frame {
+  aspect-ratio: 4 / 3;
+  max-height: 320px;
+}
