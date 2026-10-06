@@ -26,13 +26,12 @@ export default function Service({ slug }) {
     let cancelled = false;
     (async () => {
       try {
-        const res = await fetch(`/api/photos/list?service=${encodeURIComponent(slug)}`, {
+        const res = await fetch(`/api/photos/list?service=${encodeURIComponent(slug)}&_=${Date.now()}`, {
           headers: { Accept: "application/json" },
         });
         if (!res.ok) throw new Error("api");
         const data = await res.json();
         const list = Array.isArray(data.items) ? data.items : [];
-        // Only use API data when it has at least one photo; otherwise keep static fallback
         if (!cancelled) {
           setItems(list.length ? list : fallback);
         }
