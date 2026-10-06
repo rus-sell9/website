@@ -13,7 +13,9 @@ export default function Service({ slug }) {
   const { t, lang } = useLang();
   const service = servicePages.find((s) => s.slug === slug);
   const fallback = work[slug] || [];
+  // Start with fallback only until API responds; then Blob is the source of truth
   const [items, setItems] = useState(fallback);
+  const [fromApi, setFromApi] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,15 +30,22 @@ export default function Service({ slug }) {
       try {
         const res = await fetch(`/api/photos/list?service=${encodeURIComponent(slug)}&_=${Date.now()}`, {
           headers: { Accept: "application/json" },
+          cache: "no-store",
         });
         if (!res.ok) throw new Error("api");
         const data = await res.json();
         const list = Array.isArray(data.items) ? data.items : [];
         if (!cancelled) {
-          setItems(list.length ? list : fallback);
+          // API responded successfully → Blob is source of truth (even if empty)
+          setItems(list);
+          setFromApi(true);
         }
       } catch {
-        if (!cancelled) setItems(fallback);
+        // Network / API failure only → keep static config fallback
+        if (!cancelled) {
+          setItems(fallback);
+          setFromApi(false);
+        }
       }
     })();
     return () => {
