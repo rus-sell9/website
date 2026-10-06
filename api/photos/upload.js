@@ -10,7 +10,6 @@ import {
 
 export const maxDuration = 30;
 
-/** Read JSON body on plain Vercel Node functions (not Next.js). */
 async function readBody(req) {
   if (req.body != null) {
     if (typeof req.body === "object" && !Buffer.isBuffer(req.body)) return req.body;
@@ -128,7 +127,7 @@ export default async function handler(req, res) {
       if (caption) existing.caption = caption;
       if (captionEs) existing.captionEs = captionEs;
       await saveMeta(meta);
-      return sendJson(res, { ok: true, item: existing });
+      return sendJson(res, { ok: true, item: existing, items: meta[service] });
     }
 
     const item = {
@@ -142,7 +141,7 @@ export default async function handler(req, res) {
     list.push(item);
     meta[service] = list;
     await saveMeta(meta);
-    return sendJson(res, { ok: true, item });
+    return sendJson(res, { ok: true, item, items: meta[service] });
   } catch (err) {
     console.error("upload error:", err);
     return sendJson(
