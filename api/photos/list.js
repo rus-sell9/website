@@ -15,14 +15,14 @@ export default async function handler(req, res) {
         return sendJson(res, { error: "Unknown service" }, 400);
       }
       const items = (meta[service] || []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
-      res.setHeader("Cache-Control", "public, s-maxage=30, stale-while-revalidate=60");
+      res.setHeader("Cache-Control", "no-store, max-age=0");
       return sendJson(res, { service, items });
     }
     const out = {};
     for (const s of SERVICES) {
       out[s] = (meta[s] || []).slice().sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
     }
-    res.setHeader("Cache-Control", "public, s-maxage=30, stale-while-revalidate=60");
+    res.setHeader("Cache-Control", "no-store, max-age=0");
     return sendJson(res, { services: out });
   } catch (err) {
     return sendJson(res, { error: "Failed to load photos", detail: String(err?.message || err) }, 500);
