@@ -45,18 +45,11 @@ export const servicePages = [
 ];
 
 export const work = {
-  residential: [
-    { after: "/Living_Room_cleaned.webp", caption: "Living Room Refresh" },
-    { after: "/room_cleaned.webp", caption: "Bedroom Tidy & Clean" },
-    { after: "/outside_porche_cleaned.webp", caption: "Outside Cleaning" },
-  ],
-  "deep-cleaning": [
-    { after: "/kitchen_cleaned.webp", caption: "Kitchen Deep Clean" },
-    { after: "/restroom_luxury.webp", caption: "Bathroom Detail Clean" },
-  ],
-  "move-in-move-out": [
-    { after: "/move_out_cleaned.webp", caption: "Move-Out Cleaning" },
-  ],
+  // Gallery photos are managed in the admin panel (Vercel Blob).
+  // Do not add static images here — use admin.slcleaningservices.online
+  residential: [],
+  "deep-cleaning": [],
+  "move-in-move-out": [],
   commercial: [],
 };
 
