@@ -10,6 +10,7 @@ import {
 
 export const maxDuration = 30;
 
+/** Read JSON body on plain Vercel Node functions (not Next.js). */
 async function readBody(req) {
   if (req.body != null) {
     if (typeof req.body === "object" && !Buffer.isBuffer(req.body)) return req.body;
@@ -28,6 +29,7 @@ async function readBody(req) {
       }
     }
   }
+  // Stream (Node IncomingMessage)
   const chunks = [];
   for await (const chunk of req) {
     chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
@@ -111,8 +113,11 @@ export default async function handler(req, res) {
     }
 
     const url = await uploadImageBuffer(buffer, `${service}-${role}.webp`);
+
+    // Re-load meta immediately before mutate so we never save on top of a stale/empty snapshot
     const meta = await loadMeta();
-    const list = meta[service] || [];
+    if (!Array.isArray(meta[service])) meta[service] = [];
+    const list = meta[service];
 
     if (pairWithId) {
       const existing = list.find((p) => p.id === pairWithId);
@@ -127,7 +132,8 @@ export default async function handler(req, res) {
       if (caption) existing.caption = caption;
       if (captionEs) existing.captionEs = captionEs;
       await saveMeta(meta);
-      return sendJson(res, { ok: true, item: existing, items: meta[service] });
+      const fresh = await loadMeta();
+      return sendJson(res, { ok: true, item: existing, items: fresh[service] || meta[service] });
     }
 
     const item = {
@@ -141,7 +147,8 @@ export default async function handler(req, res) {
     list.push(item);
     meta[service] = list;
     await saveMeta(meta);
-    return sendJson(res, { ok: true, item, items: meta[service] });
+    const fresh = await loadMeta();
+    return sendJson(res, { ok: true, item, items: fresh[service] || meta[service] });
   } catch (err) {
     console.error("upload error:", err);
     return sendJson(
