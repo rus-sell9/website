@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Icon from "../Icon";
 import Controls from "../components/Controls";
 import Pair from "../components/Pair";
-import { business, servicePages, work } from "../config";
+import { business, servicePages } from "../config";
 import { T, useLang } from "../i18n";
 import "../App.css";
 import "./Area.css";
@@ -12,10 +12,7 @@ import "./Service.css";
 export default function Service({ slug }) {
   const { t, lang } = useLang();
   const service = servicePages.find((s) => s.slug === slug);
-  const fallback = work[slug] || [];
-  // Start with fallback only until API responds; then Blob is the source of truth
-  const [items, setItems] = useState(fallback);
-  const [fromApi, setFromApi] = useState(false);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,17 +32,9 @@ export default function Service({ slug }) {
         if (!res.ok) throw new Error("api");
         const data = await res.json();
         const list = Array.isArray(data.items) ? data.items : [];
-        if (!cancelled) {
-          // API responded successfully → Blob is source of truth (even if empty)
-          setItems(list);
-          setFromApi(true);
-        }
+        if (!cancelled) setItems(list);
       } catch {
-        // Network / API failure only → keep static config fallback
-        if (!cancelled) {
-          setItems(fallback);
-          setFromApi(false);
-        }
+        if (!cancelled) setItems([]);
       }
     })();
     return () => {
