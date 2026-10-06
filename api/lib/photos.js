@@ -16,36 +16,55 @@ function requireBlobToken() {
 
 const tokenOpts = () => ({ token: process.env.BLOB_READ_WRITE_TOKEN });
 
+function countPhotos(meta) {
+  let n = 0;
+  for (const s of SERVICES) n += (meta[s] || []).length;
+  return n;
+}
+
 export async function loadMeta() {
   requireBlobToken();
   try {
     const { blobs } = await list({
       prefix: "photos-meta",
-      limit: 20,
+      limit: 30,
       ...tokenOpts(),
     });
 
-    const exact = blobs.filter((b) => b.pathname === META_PATH || b.pathname.endsWith("/" + META_PATH));
+    const exact = blobs.filter(
+      (b) => b.pathname === META_PATH || b.pathname.endsWith("/" + META_PATH)
+    );
     const candidates = exact.length
       ? exact
-      : blobs.filter((b) => b.pathname.includes("photos-meta"));
+      : blobs.filter((b) => /photos-meta/i.test(b.pathname));
 
     if (!candidates.length) return emptyMeta();
 
-    candidates.sort((a, b) => new Date(b.uploadedAt || 0) - new Date(a.uploadedAt || 0));
-    const hit = candidates[0];
+    // Load ALL candidates and pick the one with the most photos (guards against wiped/empty overwrites)
+    let best = emptyMeta();
+    let bestCount = -1;
 
-    const res = await fetch(hit.url, { cache: "no-store" });
-    if (!res.ok) return emptyMeta();
-
-    const data = await res.json();
-    const meta = emptyMeta();
-    for (const s of SERVICES) {
-      if (Array.isArray(data[s])) {
-        meta[s] = data[s].filter((p) => p && (p.before || p.after));
+    for (const hit of candidates) {
+      try {
+        const res = await fetch(hit.url, { cache: "no-store" });
+        if (!res.ok) continue;
+        const data = await res.json();
+        const meta = emptyMeta();
+        for (const s of SERVICES) {
+          if (Array.isArray(data[s])) {
+            meta[s] = data[s].filter((p) => p && (p.before || p.after));
+          }
+        }
+        const c = countPhotos(meta);
+        if (c > bestCount) {
+          best = meta;
+          bestCount = c;
+        }
+      } catch {
+        /* try next */
       }
     }
-    return meta;
+    return best;
   } catch (err) {
     if (String(err?.message || "").includes("BLOB_READ_WRITE_TOKEN")) throw err;
     console.error("loadMeta error:", err);
