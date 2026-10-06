@@ -60,8 +60,8 @@ export default function Admin() {
 
   const loadPhotos = useCallback(async (svc) => {
     try {
-      const data = await api(`/api/photos/list?service=${encodeURIComponent(svc)}`);
-      setItems(data.items || []);
+      const data = await api(`/api/photos/list?service=${encodeURIComponent(svc)}&_=${Date.now()}`);
+      setItems(Array.isArray(data.items) ? data.items : []);
     } catch {
       setItems([]);
     }
@@ -69,6 +69,7 @@ export default function Admin() {
 
   useEffect(() => {
     document.title = "Admin | SL Cleaning Services";
+    // noindex
     let meta = document.querySelector('meta[name="robots"]');
     if (!meta) {
       meta = document.createElement("meta");
@@ -83,6 +84,7 @@ export default function Admin() {
     if (auth.authenticated) loadPhotos(service);
   }, [auth.authenticated, service, loadPhotos]);
 
+  // Live session countdown (survives tab close via cookie + expiresAt from /api/auth/me)
   useEffect(() => {
     if (!auth.authenticated || !auth.expiresAt) {
       setRemainingMs(null);
@@ -141,7 +143,7 @@ export default function Admin() {
         setProgress(`Compressing ${file.name}…`);
         const dataUrl = await fileToWebpDataUrl(file);
         setProgress(`Uploading ${file.name} (${++done}/${files.length})…`);
-        await api("/api/photos/upload", {
+        const result = await api("/api/photos/upload", {
           method: "POST",
           body: JSON.stringify({
             service,
@@ -152,6 +154,9 @@ export default function Admin() {
             dataUrl,
           }),
         });
+        if (Array.isArray(result.items)) {
+          setItems(result.items);
+        }
       }
       setOkMsg(`Uploaded ${files.length} photo(s).`);
       setCaption("");
