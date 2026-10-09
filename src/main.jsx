@@ -18,7 +18,10 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function isAdminHost() {
   const h = (window.location.hostname || "").toLowerCase();
-  return h === "admin.slcleaningservices.online" || h.startsWith("admin.");
+  if (h === "admin.slcleaningservices.online" || h.startsWith("admin.")) return true;
+  // TEMPORARY: lets the admin be tested on the *.workers.dev test site at /admin-test.
+  // Remove this line before going live on the real domain.
+  return h.endsWith(".workers.dev") && window.location.pathname.startsWith("/admin-test");
 }
 
 const adminHost = isAdminHost();

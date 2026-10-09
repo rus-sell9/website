@@ -1,0 +1,19 @@
+{
+  "name": "sl-cleaning",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+  "r2_buckets": [
+    { "binding": "PHOTOS", "bucket_name": "sl-cleaning-photos" }
+  ],
+  "vars": {
+    // TEMPORARY: lets the admin panel be tested at <your-site>.workers.dev/admin-test.
+    // Set to "0" (or delete) before going live on the real domain.
+    "ALLOW_WORKERS_DEV_ADMIN": "1"
+  }
+}
