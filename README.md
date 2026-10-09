@@ -50,4 +50,4 @@ api/           # Serverless API routes (Vercel)
 
 ## License
 
-Private. All rights reserved © SL Cleaning Services.
+Private. All rights reserved © SL Cleaning Services 2026.
