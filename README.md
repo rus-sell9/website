@@ -1,6 +1,6 @@
 # SL Cleaning Services
 
-Website for **SL Cleaning Services** — professional residential and commercial cleaning across **Los Angeles County** and **Orange County**.
+Website for **SL Cleaning Services** — professional residential and commercial cleaning across **Los Angeles County** and **Orange County & More**.
 
 **Website:** [https://slcleaningservices.online](https://slcleaningservices.online)
 
